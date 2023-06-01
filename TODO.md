@@ -1,6 +1,6 @@
 # TODO:
-  * [ ] Investigar cómo usar ES modules in nodejs.
-  * [ ] Crear estructura básica para express api.
+  * [X] Investigar cómo usar ES modules in nodejs.
+  * [X] Crear estructura básica para express api.
   * [ ] Investigar sobre mongodb.
   * [ ] Elegir base de datos.
   * [ ] Configurar ORM.
