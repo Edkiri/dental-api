@@ -1,5 +1,7 @@
 import express from 'express';
+
 import validateConfigSchema from './config/config';
+import { notFound, errorHandler } from './middlewares';
 
 export const config = validateConfigSchema();
 
@@ -8,12 +10,14 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
 	res.json({
-		message: 'Todo correcto',
+		message: 'Todo bajo control',
 	});
 });
 
-const PORT = config.PORT || 3000;
+app.use(notFound);
+app.use(errorHandler);
 
-app.listen(PORT, () => {
-	console.log(`Server listening at port ${PORT}...`);
+const port = config.PORT || 3000;
+app.listen(port, () => {
+	console.log(`Listening at http://localhost:${port}`);
 });

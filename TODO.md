@@ -1,7 +1,7 @@
 # TODO:
   * [X] Investigar cómo usar ES modules in nodejs.
   * [X] Crear estructura básica para express api.
-  * [ ] Crear Not found and error handlers.
+  * [X] Crear Not found and error handlers.
   * [X] Investigar sobre mongodb.
   * [X] Elegir base de datos.
   * [X] Crear docker-compose file for mongo service.
@@ -12,6 +12,7 @@
   * [ ] Migraciones en mongodb???.
   * [ ] Diseñar los eschemases. (All fin de semana)
   * [ ] CRUD usuario.
+  * [ ] Auth with JWT.
   * [ ] Login and logout.
 
 # Requisitos:
