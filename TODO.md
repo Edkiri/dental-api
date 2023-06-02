@@ -10,10 +10,12 @@
   * [X] Validar variables de entorno.
   * [X] Setup mongoose y conectar db.
   * [X] Migraciones en mongodb??? no.
-  * [ ] Diseñar los eschemases. (All fin de semana)
+  * [ ] Crear validador y error handler para req.body.
+  * [ ] Diseñar models. (All weekend). 
   * [ ] CRUD usuario.
   * [ ] Auth with JWT.
   * [ ] Login and logout.
+  * [ ] Crear Authorization middlewares.
 
 # Requisitos:
   * [ ] Registro de usuarios.
