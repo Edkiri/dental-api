@@ -1,10 +1,5 @@
 import express from 'express';
-import * as dotenv from 'dotenv';
 import validateConfigSchema from './config/config';
-
-dotenv.config({
-	path: '.env',
-});
 
 export const config = validateConfigSchema();
 

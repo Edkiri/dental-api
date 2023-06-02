@@ -1,4 +1,9 @@
+import * as dotenv from 'dotenv';
 import configSchema from './configSchema';
+
+dotenv.config({
+	path: '.env',
+});
 
 export default function validateConfigSchema() {
 	const { value, error } = configSchema.validate({
