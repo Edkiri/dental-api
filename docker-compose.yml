@@ -6,10 +6,10 @@ services:
     restart: always
     container_name: dental-mongodb
     environment:
-      MONGO_INITDB_DATABASE: dentaldb
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: $MONGO_DATABASE
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
     volumes:
       - ./docker-data:/data/db
     ports:
-      - 27017:27017
+      - $MONGO_PORT:27017

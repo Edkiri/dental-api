@@ -1,4 +1,9 @@
 import express from "express";
+import * as dotenv from 'dotenv';
+
+dotenv.config({
+  path: '.env',
+});
 
 const app = express();
 app.use(express.json());
@@ -9,7 +14,8 @@ app.get("/", (req, res) => {
   });
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log("Server listening at port 5000...");
+  console.log(`Server listening at port ${PORT}...`);
 });
