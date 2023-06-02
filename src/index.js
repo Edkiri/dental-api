@@ -1,9 +1,12 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
+import validateConfigSchema from './config/config';
 
 dotenv.config({
 	path: '.env',
 });
+
+validateConfigSchema();
 
 const app = express();
 app.use(express.json());

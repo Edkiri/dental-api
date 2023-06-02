@@ -11,5 +11,7 @@ module.exports = {
 	},
 	rules: {
 		'no-console': 0,
+		'consistent-return': 0,
+		'import/prefer-default-export': 0,
 	},
 };

@@ -6,7 +6,7 @@
   * [X] Crear docker-compose file for mongo service.
   * [X] Crear .env
   * [X] Setup eslint and prettier.
-  * [ ] Validar variables de entorno.
+  * [X] Validar variables de entorno.
   * [ ] Configurar ORM.
   * [ ] Conectar base de datos.
   * [ ] Diseñar el eschema.
