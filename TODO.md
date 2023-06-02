@@ -1,12 +1,16 @@
 # TODO:
   * [X] Investigar cómo usar ES modules in nodejs.
   * [X] Crear estructura básica para express api.
-  * [ ] Investigar sobre mongodb.
-  * [ ] Elegir base de datos.
+  * [X] Investigar sobre mongodb.
+  * [X] Elegir base de datos.
+  * [X] Crear docker-compose file for mongo service.
+  * [ ] Crear .env
+  * [ ] Setup eslint and prettier.
+  * [ ] Validar variables de entorno.
   * [ ] Configurar ORM.
-  * [ ] Diseñar el eschema.
   * [ ] Conectar base de datos.
-  * [ ] Configurar migraciones.
+  * [ ] Diseñar el eschema.
+  * [ ] Migraciones en mongodb???.
   * [ ] Registrar usuario.
   * [ ] Login and logout.
   * [ ] CRUD usuario.
