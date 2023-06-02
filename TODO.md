@@ -8,8 +8,8 @@
   * [X] Crear .env
   * [X] Setup eslint and prettier.
   * [X] Validar variables de entorno.
-  * [ ] Setup mongoose y conectar db.
-  * [ ] Migraciones en mongodb???.
+  * [X] Setup mongoose y conectar db.
+  * [X] Migraciones en mongodb??? no.
   * [ ] Diseñar los eschemases. (All fin de semana)
   * [ ] CRUD usuario.
   * [ ] Auth with JWT.
