@@ -4,8 +4,8 @@
   * [X] Investigar sobre mongodb.
   * [X] Elegir base de datos.
   * [X] Crear docker-compose file for mongo service.
-  * [ ] Crear .env
-  * [ ] Setup eslint and prettier.
+  * [X] Crear .env
+  * [X] Setup eslint and prettier.
   * [ ] Validar variables de entorno.
   * [ ] Configurar ORM.
   * [ ] Conectar base de datos.
