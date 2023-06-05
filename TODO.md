@@ -10,7 +10,7 @@
   * [X] Validar variables de entorno.
   * [X] Setup mongoose y conectar db.
   * [X] Migraciones en mongodb??? no.
-  * [ ] Crear validador y error handler para req.body.
+  * [X] Crear validador y error handler para req.body.
   * [ ] Diseñar models. (All weekend). 
   * [ ] CRUD usuario.
   * [ ] Auth with JWT.
