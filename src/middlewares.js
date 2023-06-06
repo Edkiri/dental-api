@@ -8,6 +8,7 @@ export const notFound = (req, res, next) => {
 export const errorHandler = (error, req, res, next) => {
 	let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
 	if (error.name === 'ValidationError') statusCode = 400;
+	if (error.message === 'Unauthorized') statusCode = 401;
 	// TODO: Handle "E11000 duplicate key error" message and status code.
 	res.status(statusCode);
 	res.json({
