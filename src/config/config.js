@@ -23,6 +23,7 @@ export default {
 	mongoose: {
 		url: envVars.MONGO_DATABASE_URL,
 		options: {
+			dbName: 'dentaldb',
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		},
