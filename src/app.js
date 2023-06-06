@@ -1,11 +1,12 @@
 import express from 'express';
 import { notFound, errorHandler } from './middlewares';
 import authRouter from './auth/router';
+import { isAuthenticated } from './auth/middlewares';
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', isAuthenticated, (req, res) => {
 	res.json({
 		message: 'Todo bajo control',
 	});

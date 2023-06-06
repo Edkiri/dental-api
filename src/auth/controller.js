@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
 import User from '../user/model';
-import { signJWTToken } from './utils';
+import { signToken } from './utils';
 
 const signup = async (req, res, next) => {
 	try {
@@ -30,7 +30,7 @@ const login = async (req, res, next) => {
 		if (!user) throw new Error(`Unauthorized`);
 		const isMatch = bcrypt.compareSync(password, user.password);
 		if (!isMatch) throw new Error(`Unauthorized`);
-		const token = signJWTToken({ userId: user.id });
+		const token = signToken({ userId: user.id });
 		// TODO: Create a custom APIResponse object
 		res.status(201).json({
 			status: 'success',
