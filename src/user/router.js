@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
 import controller from './controller';
-import { isAuthenticated } from '../auth/middlewares';
+import { isAuthenticated, isSuperAdmin } from '../auth/middlewares';
 
 const router = Router();
 
-router.get('/', isAuthenticated, controller.findAll);
+router.get('/', isAuthenticated, isSuperAdmin, controller.findAll);
 
 export default router;

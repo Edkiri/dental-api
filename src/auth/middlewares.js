@@ -20,3 +20,14 @@ export const isAuthenticated = async (req, res, next) => {
 		next(error);
 	}
 };
+
+export const isSuperAdmin = async (req, res, next) => {
+	try {
+		if (req.user.role !== 'superadmin') {
+			throw new Error('Unauthorized');
+		}
+		next();
+	} catch (error) {
+		next(error);
+	}
+};
