@@ -3,8 +3,6 @@ import { Schema, model } from 'mongoose';
 import ProfileSchema from './profile-schema';
 
 const UserSchema = new Schema({
-	name: { type: String, required: [true, 'Name is required'] },
-
 	email: {
 		type: String,
 		trim: true,
@@ -12,10 +10,11 @@ const UserSchema = new Schema({
 		unique: true,
 	},
 
-	password: { type: String, required: true },
+	password: { type: String, required: true, trim: true, minLength: 6 },
 
 	role: {
 		type: String,
+		trim: true,
 		enum: ['user', 'admin', 'superadmin'],
 		default: 'user',
 	},
