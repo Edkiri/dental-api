@@ -16,12 +16,14 @@ const { value: envVars, error } = envVarsSchema.validate({
 	MONGO_DATABASE_URL: process.env.MONGO_DATABASE_URL,
 	JWT_SECRET: process.env.JWT_SECRET,
 });
+
 if (error) {
 	throw new Error(`Error validating environment variables: ${error.message}`);
 }
 
 export default {
 	port: envVars.PORT,
+
 	mongoose: {
 		url: envVars.MONGO_DATABASE_URL,
 		options: {
@@ -30,6 +32,7 @@ export default {
 			useUnifiedTopology: true,
 		},
 	},
+
 	jwt: {
 		secret: envVars.JWT_SECRET,
 	},

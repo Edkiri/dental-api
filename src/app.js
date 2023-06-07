@@ -8,7 +8,10 @@ app.use(express.json());
 
 app.get('/', isAuthenticated, (req, res) => {
 	res.json({
-		message: 'Todo bajo control',
+		success: true,
+		data: {
+			message: 'Todo bajo control',
+		},
 	});
 });
 
