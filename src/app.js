@@ -1,6 +1,8 @@
 import express from 'express';
+
 import { notFound, errorHandler } from './middlewares';
 import authRouter from './auth/router';
+import userRouter from './user/router';
 import { isAuthenticated } from './auth/middlewares';
 
 const app = express();
@@ -16,6 +18,7 @@ app.get('/', isAuthenticated, (req, res) => {
 });
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', userRouter);
 
 app.use(notFound);
 app.use(errorHandler);
