@@ -1,16 +1,18 @@
 import * as bcrypt from 'bcrypt';
 
-import User from '../user/model';
+import User from '../user/models/user';
 import { signToken } from './utils';
 
 const signup = async (req, res, next) => {
 	try {
 		const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+
 		const user = new User({
 			...req.body,
 			password: hashedPassword,
 		});
 		const newUser = await user.save();
+
 		res.status(201).json({
 			status: 'success',
 			data: {
@@ -34,11 +36,13 @@ const login = async (req, res, next) => {
 
 		const token = signToken({ userId: user.id });
 
+		const userToSend = await User.findOne({ email }, { password: 0 });
+
 		// TODO: Create a custom APIResponse object
 		res.status(201).json({
 			status: 'success',
 			data: {
-				user,
+				user: userToSend,
 				token,
 			},
 		});

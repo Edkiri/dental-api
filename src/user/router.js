@@ -7,4 +7,6 @@ const router = Router();
 
 router.get('/', isAuthenticated, isSuperAdmin, controller.findAll);
 
+router.post('/profile', isAuthenticated, controller.updateProfile);
+
 export default router;
