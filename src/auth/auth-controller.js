@@ -8,7 +8,7 @@ const signup = async (req, res, next) => {
 		const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
 		// TODO: La propiedad 'dentist' del documento 'user' debería ser solo creada por los admin.
-		// Hay alguna mejor forma de hacer esto con mongoose?
+		// Hay alguna mejor forma de hacer esto con mongoose? igual la propiedad 'role'
 		delete req.body.dentist;
 		delete req.body.role;
 
@@ -19,7 +19,7 @@ const signup = async (req, res, next) => {
 		const newUser = await user.save();
 
 		res.status(201).json({
-			status: 'success',
+			success: true,
 			data: {
 				user: newUser,
 			},
@@ -32,8 +32,8 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
+
 		const user = await User.findOne({ email });
-		// TODO: Create a custom UnauthorizedError
 		if (!user) throw new Error(`Unauthorized`);
 
 		const isMatch = bcrypt.compareSync(password, user.password);
@@ -43,9 +43,8 @@ const login = async (req, res, next) => {
 
 		const userToSend = await User.findOne({ email }, { password: 0 });
 
-		// TODO: Create a custom APIResponse object
 		res.status(201).json({
-			status: 'success',
+			success: true,
 			data: {
 				user: userToSend,
 				token,
