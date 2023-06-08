@@ -10,6 +10,7 @@ const signup = async (req, res, next) => {
 		// TODO: La propiedad 'dentist' del documento 'user' debería ser solo creada por los admin.
 		// Hay alguna mejor forma de hacer esto con mongoose?
 		delete req.body.dentist;
+		delete req.body.role;
 
 		const user = new User({
 			...req.body,
