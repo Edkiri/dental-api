@@ -2,7 +2,7 @@ import User from './models/user';
 
 const findAll = async (req, res, next) => {
 	try {
-		const users = await User.find({}, { password: 0 });
+		const users = await User.find(req.query, { password: 0 }, { sanitizeFilter: true });
 
 		res.status(200).json({
 			success: true,
@@ -27,7 +27,10 @@ const updateProfile = async (req, res, next) => {
 			fields: { password: 0 },
 		});
 
-		res.status(200).json({ success: true, data: { user: updatedUser } });
+		res.status(200).json({
+			success: true,
+			data: { user: updatedUser },
+		});
 	} catch (error) {
 		next(error);
 	}

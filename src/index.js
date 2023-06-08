@@ -11,3 +11,4 @@ mongoose.connect(url, options).then(() => {
 		console.log(`Listening at http://localhost:${port}`);
 	});
 });
+mongoose.set('strictQuery', true);

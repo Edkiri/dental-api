@@ -11,15 +11,19 @@
   * [X] Setup mongoose y conectar db.
   * [X] Migraciones en mongodb??? no.
   * [X] Crear validador y error handler para req.body.
-  * [ ] Diseñar models. (All weekend). 
-  * [ ] CRUD usuario.
-  * [ ] Auth with JWT.
-  * [ ] Login and logout.
-  * [ ] Crear Authorization middlewares.
+  * [X] Diseñar models. (All weekend). 
+  * [X] CRUD usuario.
+  * [X] Auth with JWT.
+  * [X] Login.
+  * [X] Crear Authorization middlewares.
+  * [ ] Crear medico, verificarlo como admin.
+  * [ ] CRUD citas.
+  * [ ] Crear custom error object.
+  * [ ] Crear custom response object.
 
 # Requisitos:
-  * [ ] Registro de usuarios.
-  * [ ] Login y logout de usuarios.
+  * [X] Registro de usuarios.
+  * [X] Login de usuarios.
   * [ ] CRUD Citas.
   * [ ] Ver todas las citas que tengo como cliente (solo las propias).
   * [ ] Ver todas las citas existentes (como dentista).

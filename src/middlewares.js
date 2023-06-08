@@ -13,7 +13,7 @@ export const errorHandler = (error, req, res, next) => {
 	// TODO: Handle "E11000 duplicate key error" message and status code.
 	res.status(statusCode);
 	res.json({
-		status: 'fail',
+		success: false,
 		message: error.message,
 	});
 };
