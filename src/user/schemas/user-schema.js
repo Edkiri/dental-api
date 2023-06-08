@@ -25,7 +25,7 @@ const UserSchema = new Schema(
 
 		dentist: DentistSchema,
 	},
-	{ strict: true }
+	{ strict: true, timestamps: true }
 );
 
 export default UserSchema;

@@ -37,7 +37,7 @@ const DentistSchema = new Schema(
 			default: true,
 		},
 	},
-	{ strict: true }
+	{ strict: true, timestamps: true }
 );
 
 export default DentistSchema;

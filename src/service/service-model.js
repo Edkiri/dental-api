@@ -29,7 +29,7 @@ const ServiceSchema = new Schema(
 			min: [0, 'Duration must be positive number'],
 		},
 	},
-	{ strict: true }
+	{ strict: true, timestamps: true }
 );
 
 const Service = model('Service', ServiceSchema);
