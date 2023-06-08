@@ -1,8 +1,8 @@
 import express from 'express';
 
 import { notFound, errorHandler } from './middlewares';
-import authRouter from './auth/router';
-import userRouter from './user/router';
+import authRouter from './auth/auth-router';
+import userRouter from './user/user-router';
 
 const app = express();
 app.use(express.json());

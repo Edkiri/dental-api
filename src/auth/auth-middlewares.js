@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
+
 import config from '../config/config';
-import User from '../user/model';
+import User from '../user/user-model';
 
 export const isAuthenticated = async (req, res, next) => {
 	try {
