@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import User from '../user/models/user';
+import User from '../user/model';
 
 export const isAuthenticated = async (req, res, next) => {
 	try {
@@ -21,9 +21,9 @@ export const isAuthenticated = async (req, res, next) => {
 	}
 };
 
-export const isSuperAdmin = async (req, res, next) => {
+export const isAdmin = async (req, res, next) => {
 	try {
-		if (req.user.role !== 'superadmin') {
+		if (req.user.role !== 'admin') {
 			throw new Error('Unauthorized');
 		}
 		next();

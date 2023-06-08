@@ -1,6 +1,7 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 
 import ProfileSchema from './profile-schema';
+import DentistSchema from './dentist-schema';
 
 const UserSchema = new Schema(
 	{
@@ -16,15 +17,15 @@ const UserSchema = new Schema(
 		role: {
 			type: String,
 			trim: true,
-			enum: ['user', 'admin', 'superadmin'],
+			enum: ['user', 'admin'],
 			default: 'user',
 		},
 
 		profile: ProfileSchema,
+
+		dentist: DentistSchema,
 	},
 	{ strict: true }
 );
 
-const User = model('User', UserSchema);
-
-export default User;
+export default UserSchema;

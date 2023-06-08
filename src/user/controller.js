@@ -1,4 +1,4 @@
-import User from './models/user';
+import User from './model';
 
 const findAll = async (req, res, next) => {
 	try {
@@ -16,7 +16,7 @@ const findAll = async (req, res, next) => {
 	}
 };
 
-const updateProfile = async (req, res, next) => {
+const createOrUpdateProfile = async (req, res, next) => {
 	try {
 		const { user } = req;
 		user.profile = req.body;
@@ -36,4 +36,24 @@ const updateProfile = async (req, res, next) => {
 	}
 };
 
-export default { findAll, updateProfile };
+const createOrUpdateDentist = async (req, res, next) => {
+	try {
+		const { user } = req;
+		user.dentist = req.body;
+
+		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
+			new: true,
+			runValidators: true,
+			fields: { password: 0 },
+		});
+
+		res.status(200).json({
+			success: true,
+			data: { user: updatedUser },
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export default { findAll, createOrUpdateProfile, createOrUpdateDentist };

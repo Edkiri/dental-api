@@ -3,16 +3,15 @@ import express from 'express';
 import { notFound, errorHandler } from './middlewares';
 import authRouter from './auth/router';
 import userRouter from './user/router';
-import { isAuthenticated } from './auth/middlewares';
 
 const app = express();
 app.use(express.json());
 
-app.get('/', isAuthenticated, (req, res) => {
+app.get('/', (req, res) => {
 	res.json({
 		success: true,
 		data: {
-			message: 'Todo bajo control',
+			message: 'Todo chevere',
 		},
 	});
 });

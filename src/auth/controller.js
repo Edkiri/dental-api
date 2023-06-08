@@ -1,11 +1,15 @@
 import * as bcrypt from 'bcrypt';
 
-import User from '../user/models/user';
+import User from '../user/model';
 import { signToken } from './utils';
 
 const signup = async (req, res, next) => {
 	try {
 		const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+
+		// TODO: La propiedad 'dentist' del documento 'user' debería ser solo creada por los admin.
+		// Hay alguna mejor forma de hacer esto con mongoose?
+		delete req.body.dentist;
 
 		const user = new User({
 			...req.body,

@@ -1,12 +1,14 @@
 import { Router } from 'express';
 
 import controller from './controller';
-import { isAuthenticated, isSuperAdmin } from '../auth/middlewares';
+import { isAuthenticated, isAdmin } from '../auth/middlewares';
 
 const router = Router();
 
-router.get('/', isAuthenticated, isSuperAdmin, controller.findAll);
+router.get('/', isAuthenticated, isAdmin, controller.findAll);
 
-router.post('/profile', isAuthenticated, controller.updateProfile);
+router.post('/profile', isAuthenticated, controller.createOrUpdateProfile);
+
+router.post('/dentist', isAuthenticated, isAdmin, controller.createOrUpdateDentist);
 
 export default router;
