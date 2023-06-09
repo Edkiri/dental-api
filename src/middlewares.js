@@ -6,11 +6,15 @@ export const notFound = (req, res, next) => {
 
 // eslint-disable-next-line no-unused-vars
 export const errorHandler = (error, req, res, next) => {
-	// TODO: Find a better way to do this
-	let { message } = error;
 	let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+	let { message } = error;
+
 	if (error.name === 'ValidationError') statusCode = 400;
-	if (error.message === 'Unauthorized') statusCode = 401;
+	if (message === 'Unauthorized') statusCode = 401;
+
+	if (error.message.split(' ').slice(0, 2).join('') === 'Notfound') {
+		statusCode = 404;
+	}
 
 	if (error.name === 'CastError') {
 		message = `Value '${error.value}' is not a valid ObjectId`;
