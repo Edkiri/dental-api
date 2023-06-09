@@ -60,9 +60,28 @@ const deleteOne = async (req, res, next) => {
 	}
 };
 
+const findOne = async (req, res, next) => {
+	try {
+		const { serviceId } = req.params;
+		const service = await Service.findById(serviceId);
+
+		if (!service) throw new Error(`Not found service with id '${serviceId}'`);
+
+		res.status(200).json({
+			success: true,
+			data: {
+				service,
+			},
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
 export default {
 	create,
 	updateOne,
 	findAll,
+	findOne,
 	deleteOne,
 };
