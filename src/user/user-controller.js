@@ -16,9 +16,10 @@ const findAll = async (req, res, next) => {
 	}
 };
 
-const createOrUpdateProfile = async (req, res, next) => {
+const updateProfile = async (req, res, next) => {
 	try {
 		const { user } = req;
+
 		user.profile = req.body;
 
 		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
@@ -36,10 +37,11 @@ const createOrUpdateProfile = async (req, res, next) => {
 	}
 };
 
-const createOrUpdateDentist = async (req, res, next) => {
+const createDentist = async (req, res, next) => {
 	try {
 		const { user } = req;
 		user.dentist = req.body;
+		user.role = 'dentist';
 
 		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
 			new: true,
@@ -56,4 +58,4 @@ const createOrUpdateDentist = async (req, res, next) => {
 	}
 };
 
-export default { findAll, createOrUpdateProfile, createOrUpdateDentist };
+export default { findAll, updateProfile, createDentist };

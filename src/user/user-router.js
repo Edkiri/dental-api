@@ -7,8 +7,8 @@ const router = Router();
 
 router.get('/', isAuthenticated, isAdmin, controller.findAll);
 
-router.post('/profile', isAuthenticated, controller.createOrUpdateProfile);
+router.post('/update-profile', isAuthenticated, controller.updateProfile);
 
-router.post('/dentist', isAuthenticated, isAdmin, controller.createOrUpdateDentist);
+router.post('/create-dentist', isAuthenticated, isAdmin, controller.createDentist);
 
 export default router;
