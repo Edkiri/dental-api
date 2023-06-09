@@ -12,14 +12,22 @@ export const errorHandler = (error, req, res, next) => {
 	if (error.name === 'ValidationError') statusCode = 400;
 	if (error.message === 'Unauthorized') statusCode = 401;
 	if (error.name === 'CastError') {
-		message = `Value (${error.value}) is not a valid ObjectId`;
+		message = `Value '${error.value}' is not a valid ObjectId`;
 		statusCode = 400;
 	}
-	// TODO: Handle mongoose error "E11000 duplicate key error" message and status code.
+	if (error.code === 11000) {
+		statusCode = 400;
+		const fields = Object.keys(error.keyPattern);
+		message = fields
+			.map((field) => {
+				const value = error.keyValue[field];
+				return `Field: '${field}' with value '${value}' is already in use.`;
+			})
+			.join(' ');
+	}
 	res.status(statusCode);
 	res.json({
 		success: false,
 		message,
-		error: statusCode === 500 ? error : '',
 	});
 };
