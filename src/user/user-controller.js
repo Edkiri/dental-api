@@ -1,4 +1,5 @@
 import User from './user-model';
+import { roles } from './schemas/user-schema';
 
 const findAll = async (req, res, next) => {
 	try {
@@ -41,7 +42,7 @@ const createDentist = async (req, res, next) => {
 	try {
 		const { user } = req;
 		user.dentist = req.body;
-		user.role = 'dentist';
+		user.role = roles.DENTIST;
 
 		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
 			new: true,

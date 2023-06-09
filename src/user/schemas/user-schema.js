@@ -3,6 +3,13 @@ import { Schema } from 'mongoose';
 import ProfileSchema from './profile-schema';
 import DentistSchema from './dentist-schema';
 
+export const roles = {
+	USER: 'user',
+	DENTIST: 'dentist',
+	ADMIN: 'admin',
+	SUPERADMIN: 'superadmin',
+};
+
 const UserSchema = new Schema(
 	{
 		email: {
@@ -17,8 +24,8 @@ const UserSchema = new Schema(
 		role: {
 			type: String,
 			trim: true,
-			enum: ['user', 'dentist', 'admin'],
-			default: 'user',
+			enum: Object.values(roles),
+			default: roles.USER,
 		},
 
 		profile: ProfileSchema,
