@@ -1,6 +1,6 @@
 import Appointment from './appointment-model';
 
-const createPatientRequest = async (req, res, next) => {
+const create = async (req, res, next) => {
 	try {
 		const { reason, service } = req.body;
 
@@ -22,4 +22,24 @@ const createPatientRequest = async (req, res, next) => {
 	}
 };
 
-export default { createPatientRequest };
+const find = async (req, res, next) => {
+	const query = req.query || {};
+
+	try {
+		const requestedAppointments = await Appointment.find(query, {}, { sanitizeFilter: true })
+			.populate('patient', { password: 0 })
+			.populate('service');
+
+		res.status(200).json({
+			success: true,
+			count: requestedAppointments.length,
+			data: {
+				appointments: requestedAppointments,
+			},
+		});
+	} catch (error) {
+		return next(error);
+	}
+};
+
+export default { create, find };
