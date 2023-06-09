@@ -4,8 +4,9 @@ const findAll = async (req, res, next) => {
 	try {
 		const services = await Service.find(req.query, {}, { sanitizeFilter: true });
 
-		res.status(201).json({
+		res.status(200).json({
 			success: true,
+			count: services.length,
 			data: {
 				services,
 			},
@@ -37,7 +38,7 @@ const updateOne = async (req, res, next) => {
 			runValidators: true,
 		});
 
-		res.status(201).json({
+		res.status(200).json({
 			success: true,
 			data: {
 				service: updatedService,
