@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.cjs .",
     "lint:fix": "eslint --ext .js,.cjs . --fix",
-    "start:dev": "nodemon --experimental-specifier-resolution=node src/index.js",
+    "dev": "nodemon --experimental-specifier-resolution=node src/index.js",
     "start": "node src/index.js"
   },
   "keywords": [],

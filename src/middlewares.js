@@ -15,5 +15,6 @@ export const errorHandler = (error, req, res, next) => {
 	res.json({
 		success: false,
 		message: error.message,
+		error: statusCode === 500 ? error : '',
 	});
 };

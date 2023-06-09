@@ -26,6 +26,7 @@ const ServiceSchema = new Schema(
 
 		duration: {
 			type: Number,
+			required: true,
 			min: [0, 'Duration must be positive number'],
 		},
 	},
