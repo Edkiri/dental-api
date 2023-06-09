@@ -10,6 +10,8 @@ const AppointmentSchema = new Schema(
 
 		services: [{ type: Schema.Types.ObjectId, ref: 'Service' }],
 
+		reason: { type: String, trim: true, required: true, minLength: 10, maxLength: 255 },
+
 		status: {
 			type: String,
 			trim: true,

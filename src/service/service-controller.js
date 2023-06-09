@@ -1,6 +1,6 @@
 import Service from './service-model';
 
-const findAll = async (req, res, next) => {
+const find = async (req, res, next) => {
 	try {
 		const services = await Service.find(req.query, {}, { sanitizeFilter: true });
 
@@ -81,7 +81,7 @@ const findOne = async (req, res, next) => {
 export default {
 	create,
 	updateOne,
-	findAll,
+	find,
 	findOne,
 	deleteOne,
 };
