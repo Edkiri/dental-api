@@ -7,14 +7,19 @@ export const notFound = (req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 export const errorHandler = (error, req, res, next) => {
 	// TODO: Find a better way to do this
+	let { message } = error;
 	let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
 	if (error.name === 'ValidationError') statusCode = 400;
 	if (error.message === 'Unauthorized') statusCode = 401;
+	if (error.name === 'CastError') {
+		message = `Value (${error.value}) is not a valid ObjectId`;
+		statusCode = 400;
+	}
 	// TODO: Handle mongoose error "E11000 duplicate key error" message and status code.
 	res.status(statusCode);
 	res.json({
 		success: false,
-		message: error.message,
+		message,
 		error: statusCode === 500 ? error : '',
 	});
 };
