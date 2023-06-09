@@ -16,7 +16,8 @@
   * [X] Auth with JWT.
   * [X] Login.
   * [X] Crear Authorization middlewares.
-  * [ ] Crear medico, verificarlo como admin.
+  * [X] Crear medico, verificarlo como admin.
+  * [X] Handle duplicate key error.
   * [ ] CRUD citas.
   * [ ] Crear custom error object.
   * [ ] Crear custom response object.

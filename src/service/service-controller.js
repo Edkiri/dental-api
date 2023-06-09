@@ -48,8 +48,20 @@ const updateOne = async (req, res, next) => {
 	}
 };
 
+const deleteOne = async (req, res, next) => {
+	try {
+		const { serviceId } = req.params;
+		await Service.findByIdAndRemove(serviceId);
+
+		res.status(204).json({});
+	} catch (error) {
+		next(error);
+	}
+};
+
 export default {
 	create,
 	updateOne,
 	findAll,
+	deleteOne,
 };

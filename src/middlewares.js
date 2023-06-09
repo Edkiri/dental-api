@@ -11,12 +11,15 @@ export const errorHandler = (error, req, res, next) => {
 	let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
 	if (error.name === 'ValidationError') statusCode = 400;
 	if (error.message === 'Unauthorized') statusCode = 401;
+
 	if (error.name === 'CastError') {
 		message = `Value '${error.value}' is not a valid ObjectId`;
 		statusCode = 400;
 	}
+
 	if (error.code === 11000) {
 		statusCode = 400;
+
 		const fields = Object.keys(error.keyPattern);
 		message = fields
 			.map((field) => {
@@ -25,8 +28,8 @@ export const errorHandler = (error, req, res, next) => {
 			})
 			.join(' ');
 	}
-	res.status(statusCode);
-	res.json({
+
+	res.status(statusCode).json({
 		success: false,
 		message,
 	});

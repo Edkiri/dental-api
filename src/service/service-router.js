@@ -9,5 +9,6 @@ router.get('/', isAuthenticated, controller.findAll);
 
 router.post('/', isAuthenticated, isAdmin, controller.create);
 router.patch('/:serviceId', isAuthenticated, isAdmin, controller.updateOne);
+router.delete('/:serviceId', isAuthenticated, isAdmin, controller.deleteOne);
 
 export default router;
