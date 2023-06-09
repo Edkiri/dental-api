@@ -1,22 +1,29 @@
 import { Schema, model } from 'mongoose';
 
+export const appointmentStatus = {
+	REQUESTED: 'requested',
+	CONFIRMED: 'confirmed',
+	CANCELLED: 'cancelled',
+	FINISHED: 'finished',
+};
+
 const AppointmentSchema = new Schema(
 	{
 		dentist: { type: Schema.Types.ObjectId, ref: 'User' },
 
 		patient: { type: Schema.Types.ObjectId, ref: 'User' },
 
-		datetime: { type: Date, required: true },
+		datetime: { type: Date },
 
-		services: [{ type: Schema.Types.ObjectId, ref: 'Service' }],
+		service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
 
 		reason: { type: String, trim: true, required: true, minLength: 10, maxLength: 255 },
 
 		status: {
 			type: String,
 			trim: true,
-			enum: ['requested', 'cancelled', 'finished'],
-			default: 'requested',
+			enum: Object.values(appointmentStatus),
+			default: appointmentStatus.REQUESTED,
 		},
 	},
 	{ strict: true, timestamps: true }

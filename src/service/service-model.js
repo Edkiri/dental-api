@@ -6,6 +6,7 @@ const ServiceSchema = new Schema(
 			type: String,
 			trim: true,
 			required: true,
+			unique: true,
 			minLength: 2,
 			maxLength: 255,
 		},

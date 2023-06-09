@@ -1,9 +1,10 @@
 import express from 'express';
 
-import { notFound, errorHandler } from './middlewares';
 import authRouter from './auth/auth-router';
 import userRouter from './user/user-router';
 import serviceRouter from './service/service-router';
+import AppointmentRouter from './appointment/appointment-router';
+import { notFound, errorHandler } from './middlewares';
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/service', serviceRouter);
+app.use('/api/v1/appointment', AppointmentRouter);
 
 app.use(notFound);
 app.use(errorHandler);
