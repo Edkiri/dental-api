@@ -7,6 +7,7 @@ const router = Router();
 
 router.get('/', isAuthenticated, controller.findAll);
 
-router.post('/', isAuthenticated, isAdmin, controller.createService);
+router.post('/', isAuthenticated, isAdmin, controller.create);
+router.patch('/:serviceId', isAuthenticated, isAdmin, controller.updateOne);
 
 export default router;

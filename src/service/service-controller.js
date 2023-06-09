@@ -15,7 +15,7 @@ const findAll = async (req, res, next) => {
 	}
 };
 
-const createService = async (req, res, next) => {
+const create = async (req, res, next) => {
 	try {
 		const service = new Service(req.body);
 		const newService = await service.save();
@@ -29,7 +29,27 @@ const createService = async (req, res, next) => {
 		next(error);
 	}
 };
+const updateOne = async (req, res, next) => {
+	try {
+		const { serviceId } = req.params;
+		const updatedService = await Service.findByIdAndUpdate(serviceId, req.body, {
+			new: true,
+			runValidators: true,
+		});
+
+		res.status(201).json({
+			success: true,
+			data: {
+				service: updatedService,
+			},
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
 export default {
-	createService,
+	create,
+	updateOne,
 	findAll,
 };
