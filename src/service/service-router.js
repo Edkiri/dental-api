@@ -5,7 +5,7 @@ import controller from './service-controller';
 
 const router = Router();
 
-// router.get('/', isAuthenticated, controller.findAll);
+router.get('/', isAuthenticated, controller.findAll);
 
 router.post('/', isAuthenticated, isAdmin, controller.createService);
 
