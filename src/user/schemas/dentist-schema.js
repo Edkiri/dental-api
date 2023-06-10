@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-const DentistSchema = new Schema(
+const DentistProfileSchema = new Schema(
 	{
 		specialization: {
 			type: String,
@@ -40,4 +40,4 @@ const DentistSchema = new Schema(
 	{ strict: true, timestamps: true }
 );
 
-export default DentistSchema;
+export default DentistProfileSchema;

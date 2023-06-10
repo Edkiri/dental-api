@@ -1,5 +1,5 @@
-import Appointment, { appointmentStatus } from './appointment-model';
 import User from '../user/user-model';
+import Appointment, { appointmentStatus } from './appointment-model';
 
 const maxRequestedCount = 10;
 
@@ -40,6 +40,7 @@ export const validateQuery = (req, res, next) => {
 
 export const validateDentist = async (req, res, next) => {
 	const { dentistId } = req.body;
+
 	if (!dentistId) return next();
 
 	const dentist = await User.findById(dentistId);
@@ -48,6 +49,10 @@ export const validateDentist = async (req, res, next) => {
 		return next(error);
 	}
 
-	req.dentist = dentist;
+	if (!dentist.dentistProfile.isActive) {
+		res.statusCode = 400;
+		const error = new Error(`${dentist.firstName} ${dentist.lastName} is not an active dentist`);
+		return next(error);
+	}
 	return next();
 };

@@ -41,7 +41,7 @@ const updateProfile = async (req, res, next) => {
 const createDentist = async (req, res, next) => {
 	try {
 		const { user } = req;
-		user.dentist = req.body;
+		user.dentistProfile = req.body;
 		user.role = roles.DENTIST;
 
 		const updatedUser = await User.findByIdAndUpdate(user.id, user, {

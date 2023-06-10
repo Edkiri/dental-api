@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 
 import ProfileSchema from './profile-schema';
-import DentistSchema from './dentist-schema';
+import DentistProfileSchema from './dentist-schema';
 
 export const roles = {
 	USER: 'user',
@@ -30,7 +30,7 @@ const UserSchema = new Schema(
 
 		profile: ProfileSchema,
 
-		dentist: DentistSchema,
+		dentistProfile: DentistProfileSchema,
 	},
 	{ strict: true, timestamps: true }
 );
