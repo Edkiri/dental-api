@@ -42,4 +42,30 @@ const find = async (req, res, next) => {
 	}
 };
 
-export default { create, find };
+const update = async (req, res, next) => {
+	try {
+		const { appointmentId } = req.params;
+
+		const appointment = await Appointment.findByIdAndUpdate(appointmentId, req.body, {
+			new: true,
+			runValidators: true,
+		})
+			.populate('dentist')
+			.populate('patient')
+			.populate('service');
+		if (!appointment) {
+			throw new Error(`Not found appointment with id '${appointmentId}'`);
+		}
+
+		res.status(200).json({
+			success: true,
+			data: {
+				appointment,
+			},
+		});
+	} catch (error) {
+		return next(error);
+	}
+};
+
+export default { create, find, update };

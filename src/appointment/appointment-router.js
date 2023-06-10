@@ -6,8 +6,10 @@ import { countResquested, validateQuery } from './appointment-middlewares';
 
 const router = Router();
 
-router.post('/', isAuthenticated, countResquested, controller.create);
-
 router.get('/', isAuthenticated, isAdmin, validateQuery, controller.find);
 
+router.post('/', isAuthenticated, countResquested, controller.create);
+router.patch('/:appointmentId', isAuthenticated, controller.update);
+
+// validateDentist
 export default router;
