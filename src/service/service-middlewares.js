@@ -1,6 +1,6 @@
 import Service from './service-model';
 
-export const validateService = async (req, res, next) => {
+export const requiredService = async (req, res, next) => {
 	const { serviceId } = req.body;
 
 	if (!serviceId) {

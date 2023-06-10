@@ -3,11 +3,12 @@ import Appointment from './appointment-model';
 const create = async (req, res, next) => {
 	try {
 		const { reason } = req.body;
-		const { service } = req;
+		const { service, dentist } = req;
 
 		const newAppointment = new Appointment({
 			reason,
 			service,
+			dentist,
 			patient: req.user,
 		});
 		const appointment = await newAppointment.save();
