@@ -21,11 +21,10 @@ const UserSchema = new Schema(
 
 		password: { type: String, required: true, trim: true, minLength: 6 },
 
-		role: {
-			type: String,
+		roles: {
+			type: [{ type: String, enum: Object.values(roles) }],
 			trim: true,
-			enum: Object.values(roles),
-			default: roles.USER,
+			default: [roles.USER],
 		},
 
 		profile: ProfileSchema,

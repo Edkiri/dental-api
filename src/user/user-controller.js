@@ -42,7 +42,7 @@ const createDentist = async (req, res, next) => {
 	try {
 		const { user } = req;
 		user.dentistProfile = req.body;
-		user.role = roles.DENTIST;
+		user.roles.push(roles.DENTIST);
 
 		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
 			new: true,

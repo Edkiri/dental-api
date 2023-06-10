@@ -2,7 +2,8 @@ import Appointment from './appointment-model';
 
 const create = async (req, res, next) => {
 	try {
-		const { reason, service } = req.body;
+		const { reason } = req.body;
+		const { service } = req;
 
 		const newAppointment = new Appointment({
 			reason,

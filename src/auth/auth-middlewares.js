@@ -24,7 +24,7 @@ export const isAuthenticated = async (req, res, next) => {
 
 export const isAdmin = async (req, res, next) => {
 	try {
-		if (req.user.role !== 'admin') {
+		if (!req.user.roles.includes('admin')) {
 			throw new Error('Unauthorized');
 		}
 		next();

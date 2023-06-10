@@ -8,7 +8,7 @@ const signup = async (req, res, next) => {
 		const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
 		delete req.body.dentist;
-		delete req.body.role;
+		delete req.body.roles;
 
 		const user = new User({
 			...req.body,
