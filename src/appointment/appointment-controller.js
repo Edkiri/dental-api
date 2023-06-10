@@ -70,4 +70,46 @@ const update = async (req, res, next) => {
 	}
 };
 
-export default { create, find, update };
+const getUserAppointments = async (req, res, next) => {
+	try {
+		const { user } = req;
+
+		const userAppointments = await Appointment.find({ patient: user.id })
+			.populate('patient')
+			.populate('dentist')
+			.populate('service');
+
+		return res.status(200).json({
+			success: true,
+			count: userAppointments.length,
+			data: {
+				appointments: userAppointments,
+			},
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+const getDentistAppointments = async (req, res, next) => {
+	try {
+		const { user } = req;
+
+		const dentistAppointments = await Appointment.find({ dentist: user })
+			.populate('patient')
+			.populate('dentist')
+			.populate('service');
+
+		return res.status(200).json({
+			success: true,
+			count: dentistAppointments.length,
+			data: {
+				appointments: dentistAppointments,
+			},
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export default { create, find, update, getUserAppointments, getDentistAppointments };

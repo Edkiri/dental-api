@@ -1,7 +1,9 @@
 import { Router } from 'express';
 
 import controller from './appointment-controller';
-import { isAuthenticated, isAdmin, validateDentist } from '../auth/auth-middlewares';
+
+import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares';
+import { validateDentist } from '../user/user-middlewares';
 import { requiredService } from '../service/service-middlewares';
 import { countResquested, validateQuery } from './appointment-middlewares';
 
@@ -17,6 +19,9 @@ router.post(
 	validateDentist,
 	controller.create
 );
+
+router.get('/user', isAuthenticated, controller.getUserAppointments);
+router.get('/dentist', isAuthenticated, isDentist, controller.getDentistAppointments);
 
 router.patch('/:appointmentId', isAuthenticated, isAdmin, validateDentist, controller.update);
 

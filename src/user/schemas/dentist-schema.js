@@ -18,12 +18,6 @@ const DentistProfileSchema = new Schema(
 			maxLength: 255,
 		},
 
-		salary: {
-			type: Number,
-			required: true,
-			min: [0, 'Salary has to be a positive number'],
-		},
-
 		yearsOfExperience: {
 			type: Number,
 			required: true,
