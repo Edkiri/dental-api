@@ -10,7 +10,7 @@ export const countResquested = async (req, res, next) => {
 
 	if (requestedAppointments > maxRequestedCount) {
 		const error = new Error(
-			`User exceeded the limit of ${maxRequestedCount} requested appointment`
+			`User exceeded the limit of ${maxRequestedCount} requested appointments`
 		);
 		res.statusCode = 400;
 		return next(error);
@@ -34,5 +34,6 @@ export const validateQuery = (req, res, next) => {
 		res.statusCode = 400;
 		return next(error);
 	}
+
 	return next();
 };

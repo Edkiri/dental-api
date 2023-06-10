@@ -112,4 +112,24 @@ const getDentistAppointments = async (req, res, next) => {
 	}
 };
 
-export default { create, find, update, getUserAppointments, getDentistAppointments };
+const findOne = async (req, res, next) => {
+	try {
+		const { appointmentId } = req.params;
+
+		const appointment = await Appointment.findById(appointmentId)
+			.populate('patient')
+			.populate('dentist')
+			.populate('service');
+
+		return res.status(200).json({
+			success: true,
+			data: {
+				appointment,
+			},
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export default { create, find, update, getUserAppointments, getDentistAppointments, findOne };

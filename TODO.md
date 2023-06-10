@@ -18,18 +18,15 @@
   * [X] Crear Authorization middlewares.
   * [X] Crear medico, verificarlo como admin.
   * [X] Handle duplicate key error.
-  * [ ] CRUD citas.
-  * [ ] Crear custom error object.
-  * [ ] Crear custom response object.
 
 # Requisitos:
   * [X] Registro de usuarios.
   * [X] Login de usuarios.
-  * [ ] CRUD Citas.
   * [X] Ver todas las citas que tengo como cliente (solo las propias).
-  * [ ] Ver todas las citas existentes (como dentista).
-  * [ ] Ver todos los clientes registrados (como dentista).
-  * [ ] Ver una cita en detalle (Extra).
+  * [X] Ver todos los clientes registrados (como dentista).
   * [X] Elegir médico en la cita (Extra).
   * [X] Como médico, poder ver solo mis citas (Extra).
   * [X] Añadir tipos de intervención / consulta a las citas (Extra).
+  * [X] Ver todas las citas existentes (como dentista).
+  * [X] Ver una cita en detalle (Extra).
+  * [ ] CRUD Citas.

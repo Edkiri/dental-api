@@ -9,7 +9,7 @@ import { countResquested, validateQuery } from './appointment-middlewares';
 
 const router = Router();
 
-router.get('/', isAuthenticated, isAdmin, validateQuery, controller.find);
+router.get('/', isAuthenticated, isDentist, validateQuery, controller.find);
 
 router.post(
 	'/',
@@ -24,5 +24,6 @@ router.get('/user', isAuthenticated, controller.getUserAppointments);
 router.get('/dentist', isAuthenticated, isDentist, controller.getDentistAppointments);
 
 router.patch('/:appointmentId', isAuthenticated, isAdmin, validateDentist, controller.update);
+router.get('/:appointmentId', isAuthenticated, controller.findOne);
 
 export default router;
