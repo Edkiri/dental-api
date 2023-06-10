@@ -9,9 +9,9 @@ export const isAuthenticated = async (req, res, next) => {
 		if (!bearerToken) throw new Error('Unauthorized');
 
 		const token = bearerToken.split(' ')[1];
-		const { id } = jwt.verify(token, config.jwt.secret);
+		const { userId } = jwt.verify(token, config.jwt.secret);
 
-		const user = await User.findOne({ id }, { password: 0 });
+		const user = await User.findById(userId, { password: 0 });
 		if (!user) throw new Error('Unauthorized');
 
 		req.user = user;
