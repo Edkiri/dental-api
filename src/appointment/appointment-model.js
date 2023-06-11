@@ -19,6 +19,10 @@ const AppointmentSchema = new Schema(
 
 		reason: { type: String, trim: true, required: true, minLength: 10, maxLength: 255 },
 
+		cancelledBy: { type: Schema.Types.ObjectId, ref: 'User' },
+
+		cancelledReason: { type: String, trim: true, minLength: 10, maxLength: 255 },
+
 		status: {
 			type: String,
 			trim: true,
