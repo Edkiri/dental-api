@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Limpieza dental",
+    "description": "Remoción de placa y cálculos dentales, pulido y fluorización",
+    "duration": 30,
+    "price": 50
+  },
+  {
+    "name": "Examen oral y diagnóstico",
+    "description": "Evaluación completa de la salud oral y diagnóstico de posibles problemas",
+    "duration": 45,
+    "price": 80
+  },
+  {
+    "name": "Rellenos dentales",
+    "description": "Reparación de cavidades dentales con materiales restauradores",
+    "duration": 60,
+    "price": 120
+  },
+  {
+    "name": "Radiografías dentales",
+    "description": "Obtención de imágenes radiográficas para evaluar la salud de los dientes y tejidos circundantes",
+    "duration": 15,
+    "price": 60
+  },
+  {
+    "name": "Extracción dental",
+    "description": "Remoción de un diente dañado, infectado o problemático",
+    "duration": 60,
+    "price": 150
+  }
+]
+
