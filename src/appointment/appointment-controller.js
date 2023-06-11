@@ -34,6 +34,7 @@ const find = async (req, res, next) => {
 		const requestedAppointments = await Appointment.find(query, {}, { sanitizeFilter: true })
 			.populate('dentist', { password: 0 })
 			.populate('patient', { password: 0 })
+			.populate('cancelledBy', { password: 0 })
 			.populate('service');
 
 		res.status(200).json({
@@ -70,6 +71,7 @@ const comfirm = async (req, res, next) => {
 			.populate('dentist', { password: 0 })
 			.populate('patient', { password: 0 })
 			.populate('service');
+
 		if (!appointment) {
 			throw new Error(`Not found appointment with id '${appointmentId}'`);
 		}
@@ -113,6 +115,7 @@ const getDentistAppointments = async (req, res, next) => {
 		const dentistAppointments = await Appointment.find({ ...req.query, dentist: user })
 			.populate('patient', { password: 0, email: 0 })
 			.populate('dentist', { password: 0, email: 0 })
+			.populate('cancelledBy', { password: 0, email: 0 })
 			.populate('service');
 
 		return res.status(200).json({
@@ -134,6 +137,7 @@ const findOne = async (req, res, next) => {
 		const appointment = await Appointment.findById(appointmentId)
 			.populate('patient', { password: 0 })
 			.populate('dentist', { password: 0 })
+			.populate('cancelledBy', { password: 0 })
 			.populate('service');
 
 		return res.status(200).json({
@@ -147,4 +151,55 @@ const findOne = async (req, res, next) => {
 	}
 };
 
-export default { create, find, comfirm, getUserAppointments, getDentistAppointments, findOne };
+const cancel = async (req, res, next) => {
+	try {
+		const { appointmentId } = req.params;
+		const { cancelledReason } = req.body;
+
+		if (!cancelledReason) {
+			const error = new Error("Missing 'cancelledReason' requiered field");
+			res.statusCode = 400;
+			return next(error);
+		}
+
+		const appointment = await Appointment.findByIdAndUpdate(
+			appointmentId,
+			{
+				status: appointmentStatus.CANCELLED,
+				cancelledBy: req.user,
+				cancelledReason,
+			},
+			{
+				new: true,
+				runValidators: true,
+			}
+		)
+			.populate('patient', { password: 0 })
+			.populate('dentist', { password: 0, email: 0, profile: { phoneNumber: 0 } })
+			.populate('cancelledBy', { password: 0, email: 0, profile: { phoneNumber: 0 } })
+			.populate('service');
+
+		if (!appointment) {
+			throw new Error(`Not found appointment with id '${appointmentId}'`);
+		}
+
+		res.status(200).json({
+			success: true,
+			data: {
+				appointment,
+			},
+		});
+	} catch (error) {
+		return next(error);
+	}
+};
+
+export default {
+	create,
+	find,
+	comfirm,
+	getUserAppointments,
+	getDentistAppointments,
+	findOne,
+	cancel,
+};

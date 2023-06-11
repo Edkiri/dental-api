@@ -30,14 +30,15 @@ router.get(
 	controller.getDentistAppointments
 );
 
-router.patch(
+router.get('/:appointmentId', isAuthenticated, isOwner, controller.findOne);
+
+router.post(
 	'/:appointmentId/confirm',
 	isAuthenticated,
 	isAdmin,
 	validateDentist,
 	controller.comfirm
 );
-
-router.get('/:appointmentId', isAuthenticated, isOwner, controller.findOne);
+router.post('/:appointmentId/cancel', isAuthenticated, isOwner, controller.cancel);
 
 export default router;
