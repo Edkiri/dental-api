@@ -1,4 +1,4 @@
-import Appointment from './appointment-model';
+import Appointment, { appointmentStatus } from './appointment-model';
 
 const create = async (req, res, next) => {
 	try {
@@ -11,7 +11,10 @@ const create = async (req, res, next) => {
 			dentist,
 			patient: req.user,
 		});
-		const appointment = await newAppointment.save();
+		await newAppointment.save();
+
+		const appointment = newAppointment.toJSON();
+		delete appointment.dentist.profile.phoneNumber;
 
 		res.status(201).json({
 			success: true,
@@ -29,6 +32,7 @@ const find = async (req, res, next) => {
 
 	try {
 		const requestedAppointments = await Appointment.find(query, {}, { sanitizeFilter: true })
+			.populate('dentist', { password: 0 })
 			.populate('patient', { password: 0 })
 			.populate('service');
 
@@ -44,16 +48,27 @@ const find = async (req, res, next) => {
 	}
 };
 
-const update = async (req, res, next) => {
+const comfirm = async (req, res, next) => {
 	try {
+		const { datetime } = req.body;
+		if (!datetime) {
+			const error = new Error("Missing 'datetime' requiered field");
+			res.statusCode = 400;
+			return next(error);
+		}
+
 		const { appointmentId } = req.params;
 
-		const appointment = await Appointment.findByIdAndUpdate(appointmentId, req.body, {
-			new: true,
-			runValidators: true,
-		})
-			.populate('dentist')
-			.populate('patient')
+		const appointment = await Appointment.findByIdAndUpdate(
+			appointmentId,
+			{ ...req.body, status: appointmentStatus.CONFIRMED },
+			{
+				new: true,
+				runValidators: true,
+			}
+		)
+			.populate('dentist', { password: 0 })
+			.populate('patient', { password: 0 })
 			.populate('service');
 		if (!appointment) {
 			throw new Error(`Not found appointment with id '${appointmentId}'`);
@@ -75,8 +90,8 @@ const getUserAppointments = async (req, res, next) => {
 		const { user } = req;
 
 		const userAppointments = await Appointment.find({ patient: user.id })
-			.populate('patient')
-			.populate('dentist')
+			.populate('patient', { password: 0 })
+			.populate('dentist', { password: 0, email: 0, profile: { phoneNumber: 0 } })
 			.populate('service');
 
 		return res.status(200).json({
@@ -95,9 +110,9 @@ const getDentistAppointments = async (req, res, next) => {
 	try {
 		const { user } = req;
 
-		const dentistAppointments = await Appointment.find({ dentist: user })
-			.populate('patient')
-			.populate('dentist')
+		const dentistAppointments = await Appointment.find({ ...req.query, dentist: user })
+			.populate('patient', { password: 0, email: 0 })
+			.populate('dentist', { password: 0, email: 0 })
 			.populate('service');
 
 		return res.status(200).json({
@@ -117,8 +132,8 @@ const findOne = async (req, res, next) => {
 		const { appointmentId } = req.params;
 
 		const appointment = await Appointment.findById(appointmentId)
-			.populate('patient')
-			.populate('dentist')
+			.populate('patient', { password: 0 })
+			.populate('dentist', { password: 0 })
 			.populate('service');
 
 		return res.status(200).json({
@@ -132,4 +147,4 @@ const findOne = async (req, res, next) => {
 	}
 };
 
-export default { create, find, update, getUserAppointments, getDentistAppointments, findOne };
+export default { create, find, comfirm, getUserAppointments, getDentistAppointments, findOne };

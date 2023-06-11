@@ -37,3 +37,31 @@ export const validateQuery = (req, res, next) => {
 
 	return next();
 };
+
+export const isOwner = async (req, res, next) => {
+	const { user } = req;
+	if (user.roles.includes('admin') || user.roles.includes('superadmin')) return next();
+
+	try {
+		const { appointmentId } = req.params;
+
+		const appointment = await Appointment.findById(appointmentId)
+			.populate('patient')
+			.populate('dentist');
+
+		if (!appointment) {
+			throw new Error(`Not found appointment with id '${appointmentId}'`);
+		}
+
+		const isUserPatient = user.id === appointment.patient.id;
+		const isUserDentist = user.id === appointment.dentist.id;
+
+		if (!isUserPatient && !isUserDentist) {
+			throw new Error('Unauthorized');
+		}
+
+		return next();
+	} catch (error) {
+		return next(error);
+	}
+};

@@ -14,12 +14,15 @@ const signup = async (req, res, next) => {
 			...req.body,
 			password: hashedPassword,
 		});
-		const newUser = await user.save();
+		await user.save();
+
+		const userToSend = user.toJSON();
+		delete userToSend.password;
 
 		res.status(201).json({
 			success: true,
 			data: {
-				user: newUser,
+				user: userToSend,
 			},
 		});
 	} catch (err) {
@@ -37,7 +40,7 @@ const login = async (req, res, next) => {
 		const isMatch = bcrypt.compareSync(password, user.password);
 		if (!isMatch) throw new Error(`Unauthorized`);
 
-		const token = signToken({ userId: user.id });
+		const token = signToken({ userId: user.id, roles: user.roles });
 
 		const userToSend = await User.findOne({ email }, { password: 0 });
 

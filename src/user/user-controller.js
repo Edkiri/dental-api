@@ -26,7 +26,7 @@ const updateProfile = async (req, res, next) => {
 		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
 			new: true,
 			runValidators: true,
-			fields: { password: 0 },
+			fields: { password: 0, email: 0 },
 		});
 
 		res.status(200).json({
