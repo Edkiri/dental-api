@@ -40,5 +40,6 @@ router.post(
 	controller.comfirm
 );
 router.post('/:appointmentId/cancel', isAuthenticated, isOwner, controller.cancel);
+router.post('/:appointmentId/finish', isAuthenticated, isAdmin, controller.finish);
 
 export default router;

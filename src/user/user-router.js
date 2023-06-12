@@ -9,6 +9,6 @@ router.get('/', isAuthenticated, isDentist, controller.findAll);
 
 router.post('/update-profile', isAuthenticated, controller.updateProfile);
 
-router.post('/create-dentist', isAuthenticated, isAdmin, controller.createDentist);
+router.post('/create-dentist/:userId', isAuthenticated, isAdmin, controller.createDentist);
 
 export default router;

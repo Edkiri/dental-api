@@ -194,6 +194,47 @@ const cancel = async (req, res, next) => {
 	}
 };
 
+const finish = async (req, res, next) => {
+	try {
+		const { appointmentId } = req.params;
+		const { evaluation } = req.body;
+
+		if (!evaluation) {
+			const error = new Error("Missing 'evaluation' requiered field");
+			res.statusCode = 400;
+			return next(error);
+		}
+
+		const appointment = await Appointment.findByIdAndUpdate(
+			appointmentId,
+			{
+				status: appointmentStatus.FINISHED,
+				evaluation,
+			},
+			{
+				new: true,
+				runValidators: true,
+			}
+		)
+			.populate('patient', { password: 0 })
+			.populate('dentist', { password: 0 })
+			.populate('service');
+
+		if (!appointment) {
+			throw new Error(`Not found appointment with id '${appointmentId}'`);
+		}
+
+		res.status(200).json({
+			success: true,
+			data: {
+				appointment,
+			},
+		});
+	} catch (error) {
+		return next(error);
+	}
+};
+
 export default {
 	create,
 	find,
@@ -202,4 +243,5 @@ export default {
 	getDentistAppointments,
 	findOne,
 	cancel,
+	finish,
 };

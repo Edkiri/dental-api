@@ -40,7 +40,14 @@ const updateProfile = async (req, res, next) => {
 
 const createDentist = async (req, res, next) => {
 	try {
-		const { user } = req;
+		const { userId } = req.params;
+
+		const user = await User.findById(userId);
+
+		if (!user) {
+			throw new Error(`Not found user with id '${userId}'`);
+		}
+
 		user.dentistProfile = req.body;
 		user.roles.push(roles.DENTIST);
 

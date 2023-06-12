@@ -15,26 +15,27 @@ export const isAuthenticated = async (req, res, next) => {
 		if (!user) throw new Error('Unauthorized');
 
 		req.user = user;
-		next();
+		return next();
 	} catch (error) {
 		if (error.message === 'invalid token') error.message = 'Unauthorized';
-		next(error);
+		return next(error);
 	}
 };
 
 export const isAdmin = async (req, res, next) => {
-	try {
-		if (!req.user.roles.includes('admin')) {
-			throw new Error('Unauthorized');
-		}
-		next();
-	} catch (error) {
-		next(error);
+	const { user } = req;
+	if (!user.roles.includes('admin') && !user.roles.includes('superadmin')) {
+		const error = new Error('Unauthorized');
+		return next(error);
 	}
+	return next();
 };
 
 export const isDentist = async (req, res, next) => {
-	if (!req.user.roles.includes('dentist')) {
+	const { user } = req;
+	if (user.roles.includes('admin') || user.roles.includes('superadmin')) return next();
+
+	if (!user.roles.includes('dentist')) {
 		const error = new Error('Unauthorized');
 		return next(error);
 	}
