@@ -18,7 +18,8 @@
   * [X] Crear Authorization middlewares.
   * [X] Crear medico, verificarlo como admin.
   * [X] Handle duplicate key error.
-  * [ ] Separar todo en servicios.
+  * [X] Separar todo en servicios.
+  * [ ] Hacer readme.md.
 
 # Requisitos:
   * [X] Registro de usuarios.
