@@ -1,6 +1,6 @@
 import Appointment, { appointmentStatus } from './appointment-model';
 
-const request = async (req, res, next) => {
+const requestAppointment = async (req, res, next) => {
 	try {
 		const { reason } = req.body;
 		const { service, dentist } = req;
@@ -14,7 +14,6 @@ const request = async (req, res, next) => {
 		await newAppointment.save();
 
 		const appointment = newAppointment.toJSON();
-		delete appointment.dentist.profile.phoneNumber;
 
 		res.status(201).json({
 			success: true,
@@ -236,12 +235,12 @@ const finish = async (req, res, next) => {
 };
 
 export default {
-	request,
-	find,
+	requestAppointment,
+	cancel,
 	comfirm,
+	finish,
+	find,
 	getUserAppointments,
 	getDentistAppointments,
 	findOne,
-	cancel,
-	finish,
 };

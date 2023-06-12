@@ -12,16 +12,14 @@ mongoose
 		try {
 			const superadmin = await userSeeder.seedSuperadmin();
 			if (superadmin) console.log('Superadmin has been created');
-
 			console.log('Success seeding user');
 
 			const services = await seedServices();
 			if (services) console.log(`${services.length} services has been created`);
 			console.log('Success seeding services');
-
-			process.exit();
 		} catch (error) {
 			console.log('Seeder failed! ', error);
+		} finally {
 			process.exit();
 		}
 	})

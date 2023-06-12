@@ -18,6 +18,7 @@
   * [X] Crear Authorization middlewares.
   * [X] Crear medico, verificarlo como admin.
   * [X] Handle duplicate key error.
+  * [ ] Separar todo en servicios.
 
 # Requisitos:
   * [X] Registro de usuarios.
@@ -29,4 +30,4 @@
   * [X] Añadir tipos de intervención / consulta a las citas (Extra).
   * [X] Ver todas las citas existentes (como dentista).
   * [X] Ver una cita en detalle (Extra).
-  * [ ] CRUD Citas.
+  * [X] CRUD Citas.

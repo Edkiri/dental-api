@@ -27,9 +27,9 @@ router.post(
 	'/',
 	isAuthenticated,
 	countResquested,
-	requiredService,
 	validateDentist,
-	controller.request
+	requiredService,
+	controller.requestAppointment
 );
 
 router.post(

@@ -16,6 +16,7 @@ export const countResquested = async (req, res, next) => {
 			res.statusCode = 400;
 			return next(error);
 		}
+		return next();
 	} catch (error) {
 		return next(error);
 	}
