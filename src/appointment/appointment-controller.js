@@ -1,46 +1,40 @@
-import Appointment, { appointmentStatus } from './appointment-model';
+import { appointmentStatus } from './appointment-model';
+import appointmentService from './appointment-service';
 
-const requestAppointment = async (req, res, next) => {
+const request = async (req, res, next) => {
 	try {
 		const { reason } = req.body;
 		const { service, dentist } = req;
 
-		const newAppointment = new Appointment({
+		const newAppointment = await appointmentService.create({
 			reason,
 			service,
 			dentist,
 			patient: req.user,
 		});
-		await newAppointment.save();
 
-		const appointment = newAppointment.toJSON();
-
-		res.status(201).json({
+		return res.status(201).json({
 			success: true,
 			data: {
-				appointment,
+				appointment: newAppointment,
 			},
 		});
 	} catch (error) {
-		next(error);
+		return next(error);
 	}
 };
 
-const find = async (req, res, next) => {
+const findAll = async (req, res, next) => {
 	const query = req.query || {};
 
 	try {
-		const requestedAppointments = await Appointment.find(query, {}, { sanitizeFilter: true })
-			.populate('dentist', { password: 0 })
-			.populate('patient', { password: 0 })
-			.populate('cancelledBy', { password: 0 })
-			.populate('service');
+		const appointments = await appointmentService.find(query);
 
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
-			count: requestedAppointments.length,
+			count: appointments.length,
 			data: {
-				appointments: requestedAppointments,
+				appointments,
 			},
 		});
 	} catch (error) {
@@ -59,26 +53,15 @@ const comfirm = async (req, res, next) => {
 
 		const { appointmentId } = req.params;
 
-		const appointment = await Appointment.findByIdAndUpdate(
-			appointmentId,
-			{ ...req.body, status: appointmentStatus.CONFIRMED },
-			{
-				new: true,
-				runValidators: true,
-			}
-		)
-			.populate('dentist', { password: 0 })
-			.populate('patient', { password: 0 })
-			.populate('service');
+		const confirmedAppointment = await appointmentService.updateOne(appointmentId, {
+			...req.body,
+			status: appointmentStatus.CONFIRMED,
+		});
 
-		if (!appointment) {
-			throw new Error(`Not found appointment with id '${appointmentId}'`);
-		}
-
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			data: {
-				appointment,
+				appointment: confirmedAppointment,
 			},
 		});
 	} catch (error) {
@@ -88,12 +71,9 @@ const comfirm = async (req, res, next) => {
 
 const getUserAppointments = async (req, res, next) => {
 	try {
-		const { user } = req;
+		const patientId = req.user.id;
 
-		const userAppointments = await Appointment.find({ patient: user.id })
-			.populate('patient', { password: 0 })
-			.populate('dentist', { password: 0, email: 0, profile: { phoneNumber: 0 } })
-			.populate('service');
+		const userAppointments = await appointmentService.findByPatient(patientId);
 
 		return res.status(200).json({
 			success: true,
@@ -103,7 +83,7 @@ const getUserAppointments = async (req, res, next) => {
 			},
 		});
 	} catch (error) {
-		next(error);
+		return next(error);
 	}
 };
 
@@ -111,11 +91,7 @@ const getDentistAppointments = async (req, res, next) => {
 	try {
 		const { user } = req;
 
-		const dentistAppointments = await Appointment.find({ ...req.query, dentist: user })
-			.populate('patient', { password: 0, email: 0 })
-			.populate('dentist', { password: 0, email: 0 })
-			.populate('cancelledBy', { password: 0, email: 0 })
-			.populate('service');
+		const dentistAppointments = await appointmentService.findByDentist(user.id, { ...req.query });
 
 		return res.status(200).json({
 			success: true,
@@ -125,7 +101,7 @@ const getDentistAppointments = async (req, res, next) => {
 			},
 		});
 	} catch (error) {
-		next(error);
+		return next(error);
 	}
 };
 
@@ -133,11 +109,7 @@ const findOne = async (req, res, next) => {
 	try {
 		const { appointmentId } = req.params;
 
-		const appointment = await Appointment.findById(appointmentId)
-			.populate('patient', { password: 0 })
-			.populate('dentist', { password: 0 })
-			.populate('cancelledBy', { password: 0 })
-			.populate('service');
+		const appointment = await appointmentService.findById(appointmentId);
 
 		return res.status(200).json({
 			success: true,
@@ -146,7 +118,7 @@ const findOne = async (req, res, next) => {
 			},
 		});
 	} catch (error) {
-		next(error);
+		return next(error);
 	}
 };
 
@@ -161,31 +133,16 @@ const cancel = async (req, res, next) => {
 			return next(error);
 		}
 
-		const appointment = await Appointment.findByIdAndUpdate(
-			appointmentId,
-			{
-				status: appointmentStatus.CANCELLED,
-				cancelledBy: req.user,
-				cancelledReason,
-			},
-			{
-				new: true,
-				runValidators: true,
-			}
-		)
-			.populate('patient', { password: 0 })
-			.populate('dentist', { password: 0, email: 0, profile: { phoneNumber: 0 } })
-			.populate('cancelledBy', { password: 0, email: 0, profile: { phoneNumber: 0 } })
-			.populate('service');
+		const cancelledAppointment = await appointmentService.updateOne(appointmentId, {
+			status: appointmentStatus.CANCELLED,
+			cancelledReason,
+			cancelledBy: req.user,
+		});
 
-		if (!appointment) {
-			throw new Error(`Not found appointment with id '${appointmentId}'`);
-		}
-
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			data: {
-				appointment,
+				appointment: cancelledAppointment,
 			},
 		});
 	} catch (error) {
@@ -204,29 +161,15 @@ const finish = async (req, res, next) => {
 			return next(error);
 		}
 
-		const appointment = await Appointment.findByIdAndUpdate(
-			appointmentId,
-			{
-				status: appointmentStatus.FINISHED,
-				evaluation,
-			},
-			{
-				new: true,
-				runValidators: true,
-			}
-		)
-			.populate('patient', { password: 0 })
-			.populate('dentist', { password: 0 })
-			.populate('service');
-
-		if (!appointment) {
-			throw new Error(`Not found appointment with id '${appointmentId}'`);
-		}
+		const finishedAppointment = await appointmentService.updateOne(appointmentId, {
+			status: appointmentStatus.FINISHED,
+			evaluation,
+		});
 
 		res.status(200).json({
 			success: true,
 			data: {
-				appointment,
+				appointment: finishedAppointment,
 			},
 		});
 	} catch (error) {
@@ -235,11 +178,11 @@ const finish = async (req, res, next) => {
 };
 
 export default {
-	requestAppointment,
+	request,
 	cancel,
 	comfirm,
 	finish,
-	find,
+	findAll,
 	getUserAppointments,
 	getDentistAppointments,
 	findOne,

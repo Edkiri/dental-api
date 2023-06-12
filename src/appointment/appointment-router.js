@@ -9,7 +9,7 @@ import { countResquested, validateQuery, isOwner } from './appointment-middlewar
 
 const router = Router();
 
-router.get('/', isAuthenticated, isDentist, validateQuery, controller.find);
+router.get('/', isAuthenticated, isDentist, validateQuery, controller.findAll);
 
 router.get('/patient', isAuthenticated, controller.getUserAppointments);
 
@@ -29,7 +29,7 @@ router.post(
 	countResquested,
 	validateDentist,
 	requiredService,
-	controller.requestAppointment
+	controller.request
 );
 
 router.post(
