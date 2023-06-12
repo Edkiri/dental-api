@@ -21,10 +21,10 @@ const findById = async (userId) => {
 	return user;
 };
 
-const createDentist = async (userId, data) => {
+const createDentist = async (userId, dentistData) => {
 	const user = await findById(userId);
 
-	user.dentistProfile = data;
+	user.dentistProfile = dentistData;
 	user.roles.push(roles.DENTIST);
 
 	const dentist = await User.findByIdAndUpdate(user.id, user, {
