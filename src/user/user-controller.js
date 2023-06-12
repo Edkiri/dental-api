@@ -1,9 +1,8 @@
-import User from './user-model';
-import { roles } from './schemas/user-schema';
+import userService from './user-service';
 
 const findAll = async (req, res, next) => {
 	try {
-		const users = await User.find(req.query, { password: 0 }, { sanitizeFilter: true });
+		const users = await userService.findAll(req.query);
 
 		res.status(200).json({
 			success: true,
@@ -20,14 +19,9 @@ const findAll = async (req, res, next) => {
 const updateProfile = async (req, res, next) => {
 	try {
 		const { user } = req;
-
 		user.profile = req.body;
 
-		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
-			new: true,
-			runValidators: true,
-			fields: { password: 0, email: 0 },
-		});
+		const updatedUser = await userService.updateOne(user.id, user);
 
 		res.status(200).json({
 			success: true,
@@ -42,23 +36,11 @@ const createDentist = async (req, res, next) => {
 	try {
 		const { userId } = req.params;
 
-		const user = await User.findById(userId);
-		if (!user) {
-			throw new Error(`Not found user with id '${userId}'`);
-		}
-
-		user.dentistProfile = req.body;
-		user.roles.push(roles.DENTIST);
-
-		const updatedUser = await User.findByIdAndUpdate(user.id, user, {
-			new: true,
-			runValidators: true,
-			fields: { password: 0 },
-		});
+		const dentist = await userService.createDentist(userId, req.body);
 
 		res.status(200).json({
 			success: true,
-			data: { user: updatedUser },
+			data: { user: dentist },
 		});
 	} catch (error) {
 		next(error);

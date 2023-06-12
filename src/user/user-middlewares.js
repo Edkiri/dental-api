@@ -1,4 +1,4 @@
-import User from './user-model';
+import userService from './user-service';
 
 export const validateDentist = async (req, res, next) => {
 	const { dentistId } = req.body;
@@ -6,19 +6,16 @@ export const validateDentist = async (req, res, next) => {
 	if (!dentistId) return next();
 
 	try {
-		const dentist = await User.findById(dentistId, { email: 0, password: 0 });
-		if (!dentist) {
-			throw new Error(`Not found dentist with id '${dentistId}'`);
-		}
+		const dentist = await userService.findById(dentistId);
 
 		if (!dentist.roles.includes('dentist')) {
 			res.statusCode = 400;
-			throw new Error(`Dentist is not a valid dentist`);
+			throw new Error(`Not a valid dentist`);
 		}
 
 		if (!dentist.dentistProfile.isActive) {
 			res.statusCode = 400;
-			throw new Error(`${dentist.firstName} ${dentist.lastName} is not an active dentist`);
+			throw new Error(`Not a valid dentist`);
 		}
 
 		req.dentist = dentist;
