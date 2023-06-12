@@ -1,6 +1,6 @@
 import Appointment, { appointmentStatus } from './appointment-model';
 
-const create = async (req, res, next) => {
+const request = async (req, res, next) => {
 	try {
 		const { reason } = req.body;
 		const { service, dentist } = req;
@@ -236,7 +236,7 @@ const finish = async (req, res, next) => {
 };
 
 export default {
-	create,
+	request,
 	find,
 	comfirm,
 	getUserAppointments,

@@ -11,15 +11,6 @@ const router = Router();
 
 router.get('/', isAuthenticated, isDentist, validateQuery, controller.find);
 
-router.post(
-	'/',
-	isAuthenticated,
-	countResquested,
-	requiredService,
-	validateDentist,
-	controller.create
-);
-
 router.get('/patient', isAuthenticated, controller.getUserAppointments);
 
 router.get(
@@ -31,6 +22,15 @@ router.get(
 );
 
 router.get('/:appointmentId', isAuthenticated, isOwner, controller.findOne);
+
+router.post(
+	'/',
+	isAuthenticated,
+	countResquested,
+	requiredService,
+	validateDentist,
+	controller.request
+);
 
 router.post(
 	'/:appointmentId/confirm',

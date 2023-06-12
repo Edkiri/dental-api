@@ -20,6 +20,7 @@ const create = async (req, res, next) => {
 	try {
 		const service = new Service(req.body);
 		const newService = await service.save();
+
 		res.status(201).json({
 			success: true,
 			data: {

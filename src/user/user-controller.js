@@ -43,7 +43,6 @@ const createDentist = async (req, res, next) => {
 		const { userId } = req.params;
 
 		const user = await User.findById(userId);
-
 		if (!user) {
 			throw new Error(`Not found user with id '${userId}'`);
 		}
