@@ -15,7 +15,7 @@ const create = async (appointmentData) => {
 	const newAppointment = new Appointment(appointmentData);
 	await newAppointment.save();
 	const parsedAppointment = newAppointment.toJSON();
-	delete parsedAppointment.dentist.password;
+	// delete parsedAppointment.dentist.password;
 	return parsedAppointment;
 };
 

@@ -31,6 +31,7 @@ export const errorHandler = (error, req, res, next) => {
 	return res.status(statusCode).json({
 		success: false,
 		message,
+		error,
 	});
 };
 

@@ -19,7 +19,8 @@
   * [X] Crear medico, verificarlo como admin.
   * [X] Handle duplicate key error.
   * [X] Separar todo en servicios.
-  * [ ] Hacer readme.md.
+  * [X] Hacer readme.md.
+  * [ ] Documentar los endpoints.
 
 # Requisitos:
   * [X] Registro de usuarios.
