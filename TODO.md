@@ -23,17 +23,19 @@
   * [ ] Documentar los endpoints.
   * [ ] Validate incoming data with Joi.
   * [ ] Read about swagger with express.
-  * [ ] Retrieve user profile endpoint.
+  * [X] Retrieve user profile endpoint.
   * [ ] hasCompletedProfile middleware.
+  * [ ] Add price to appointment schema and hide priceService.
+  * [ ] Add payment model and payment appointment status.
 
 # Requisitos:
   * [X] Registro de usuarios.
   * [X] Login de usuarios.
   * [X] Ver todas las citas que tengo como cliente (solo las propias).
   * [X] Ver todos los clientes registrados (como dentista).
+  * [X] Ver todas las citas existentes (como dentista).
+  * [X] CRUD Citas.
   * [X] Elegir médico en la cita (Extra).
   * [X] Como médico, poder ver solo mis citas (Extra).
   * [X] Añadir tipos de intervención / consulta a las citas (Extra).
-  * [X] Ver todas las citas existentes (como dentista).
   * [X] Ver una cita en detalle (Extra).
-  * [X] CRUD Citas.
