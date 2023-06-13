@@ -4,7 +4,8 @@ import authRouter from './auth/auth-router';
 import userRouter from './user/user-router';
 import serviceRouter from './service/service-router';
 import appointmentRouter from './appointment/appointment-router';
-import { notFound, errorHandler } from './middlewares';
+import { notFound } from './middlewares';
+import errorHandler from './error-handler';
 
 const app = express();
 app.use(express.json());
