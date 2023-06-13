@@ -25,7 +25,9 @@ const createDentist = async (userId, dentistData) => {
 	const user = await findById(userId);
 
 	user.dentistProfile = dentistData;
-	user.roles.push(roles.DENTIST);
+	if (!user.roles.includes('dentist')) {
+		user.roles.push(roles.DENTIST);
+	}
 
 	const dentist = await User.findByIdAndUpdate(user.id, user, {
 		new: true,

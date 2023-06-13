@@ -47,7 +47,7 @@ const updateProfile = async (req, res, next) => {
 	}
 };
 
-const createDentist = async (req, res, next) => {
+const updateDentist = async (req, res, next) => {
 	try {
 		const { userId } = req.params;
 
@@ -62,4 +62,4 @@ const createDentist = async (req, res, next) => {
 	}
 };
 
-export default { findAll, updateProfile, createDentist, getProfile };
+export default { findAll, updateProfile, updateDentist, getProfile };

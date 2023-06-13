@@ -2,15 +2,24 @@ import { Router } from 'express';
 
 import controller from './user-controller';
 import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares';
+import { validate } from '../middlewares';
+import UpdateProfileDto from './dtos/update-profile-dto';
+import CreateDentistDto from './dtos/create-dentist-dto';
 
 const router = Router();
 
-router.get('/profile', isAuthenticated, controller.getProfile);
-
 router.get('/', isAuthenticated, isDentist, controller.findAll);
 
-router.post('/update-profile', isAuthenticated, controller.updateProfile);
+router.get('/profile', isAuthenticated, controller.getProfile);
 
-router.post('/create-dentist/:userId', isAuthenticated, isAdmin, controller.createDentist);
+router.post('/profile', isAuthenticated, validate(UpdateProfileDto), controller.updateProfile);
+
+router.post(
+	'/update-dentist-profile/:userId',
+	isAuthenticated,
+	isAdmin,
+	validate(CreateDentistDto),
+	controller.updateDentist
+);
 
 export default router;
