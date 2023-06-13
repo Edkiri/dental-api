@@ -1,5 +1,20 @@
 import userService from './user-service';
 
+const getProfile = async (req, res, next) => {
+	try {
+		const { user } = req;
+
+		return res.status(200).json({
+			success: true,
+			data: {
+				user,
+			},
+		});
+	} catch (error) {
+		return next(error);
+	}
+};
+
 const findAll = async (req, res, next) => {
 	try {
 		const users = await userService.findAll(req.query);
@@ -47,4 +62,4 @@ const createDentist = async (req, res, next) => {
 	}
 };
 
-export default { findAll, updateProfile, createDentist };
+export default { findAll, updateProfile, createDentist, getProfile };
