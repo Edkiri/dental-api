@@ -4,6 +4,7 @@ export const notFound = (req, res, next) => {
 	return next(error);
 };
 
+// https://www.topcoder.com/thrive/articles/data-validation-in-nodejs-and-express-using-joi
 export const validate = (schema) => (req, res, next) => {
 	const { error } = schema.validate(req.body);
 
