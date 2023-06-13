@@ -7,6 +7,7 @@ import { validateDentist } from '../user/user-middlewares';
 import { countResquested, validateQuery, isOwner } from './appointment-middlewares';
 import { validate } from '../middlewares';
 import RequestAppointmentDto from './dtos/request-appointment-dto';
+import CancelAppointmentDto from './dtos/cancel-appointment-dto';
 
 const router = Router();
 
@@ -40,7 +41,15 @@ router.post(
 	validateDentist,
 	controller.comfirm
 );
-router.post('/:appointmentId/cancel', isAuthenticated, isOwner, controller.cancel);
+
+router.post(
+	'/:appointmentId/cancel',
+	isAuthenticated,
+	validate(CancelAppointmentDto),
+	isOwner,
+	controller.cancel
+);
+
 router.post('/:appointmentId/finish', isAuthenticated, isAdmin, controller.finish);
 
 export default router;

@@ -1,4 +1,5 @@
 import Appointment, { appointmentStatus } from './appointment-model';
+import appointmentService from './appointment-service';
 
 const maxRequestedCount = 10;
 
@@ -48,18 +49,9 @@ export const isOwner = async (req, res, next) => {
 	try {
 		const { appointmentId } = req.params;
 
-		const appointment = await Appointment.findById(appointmentId)
-			.populate('patient')
-			.populate('dentist');
+		const appointment = await appointmentService.findById(appointmentId);
 
-		if (!appointment) {
-			throw new Error(`Not found appointment with id '${appointmentId}'`);
-		}
-
-		const isUserPatient = user.id === appointment.patient.id;
-		const isUserDentist = user.id === appointment.dentist.id;
-
-		if (!isUserPatient && !isUserDentist) {
+		if (user.id !== appointment.patient.id) {
 			throw new Error('Unauthorized');
 		}
 

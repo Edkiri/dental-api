@@ -4,7 +4,6 @@ const findById = async (appointmentId) => {
 	const appointment = await Appointment.findById(appointmentId)
 		.populate('patient', { password: 0 })
 		.populate('dentist', { password: 0 })
-		.populate('cancelledBy', { password: 0 })
 		.populate('service');
 
 	if (!appointment) throw new Error(`Not found appointment with id '${appointmentId}'`);
@@ -51,7 +50,6 @@ const findByPatient = async (patientId) => {
 	const userAppointments = await Appointment.find({ patient: patientId })
 		.populate('patient', { password: 0 })
 		.populate('dentist', { password: 0, email: 0, profile: { phoneNumber: 0 } })
-		.populate('cancelledBy', { password: 0, email: 0, profile: { phoneNumber: 0 } })
 		.populate('service');
 
 	return userAppointments;
