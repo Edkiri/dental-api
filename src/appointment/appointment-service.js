@@ -7,7 +7,8 @@ const findById = async (appointmentId) => {
 		.populate('service');
 
 	if (!appointment) throw new Error(`Not found appointment with id '${appointmentId}'`);
-	return findById;
+
+	return appointment;
 };
 
 const create = async (appointmentData) => {
@@ -32,15 +33,12 @@ const find = async (query) => {
 };
 
 const updateOne = async (appointmentId, appointmentData) => {
-	await findById(appointmentId);
-
 	const appointment = await Appointment.findByIdAndUpdate(appointmentId, appointmentData, {
 		new: true,
 		runValidators: true,
 	})
 		.populate('patient', { password: 0 })
 		.populate('dentist', { password: 0, email: 0, profile: { phoneNumber: 0 } })
-		.populate('cancelledBy', { password: 0, email: 0, profile: { phoneNumber: 0 } })
 		.populate('service');
 
 	return appointment;
@@ -64,4 +62,5 @@ const findByDentist = async (dentistId, query) => {
 
 	return dentistAppointments;
 };
-export default { create, find, updateOne, findByPatient, findByDentist };
+
+export default { create, find, updateOne, findByPatient, findByDentist, findById };

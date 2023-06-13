@@ -133,12 +133,6 @@ const cancel = async (req, res, next) => {
 		const { appointmentId } = req.params;
 		const { cancelledReason } = req.body;
 
-		if (!cancelledReason) {
-			const error = new Error("Missing 'cancelledReason' requiered field");
-			res.statusCode = 400;
-			return next(error);
-		}
-
 		const cancelledAppointment = await appointmentService.updateOne(appointmentId, {
 			status: appointmentStatus.CANCELLED,
 			cancelledReason,
