@@ -5,8 +5,8 @@ import controller from './service-controller';
 
 const router = Router();
 
-router.get('/', isAuthenticated, controller.find);
-router.get('/:serviceId', isAuthenticated, controller.findOne);
+router.get('/', controller.find);
+router.get('/:serviceId', controller.findOne);
 
 router.post('/', isAuthenticated, isAdmin, controller.create);
 router.patch('/:serviceId', isAuthenticated, isAdmin, controller.updateOne);

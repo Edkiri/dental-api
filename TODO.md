@@ -21,6 +21,10 @@
   * [X] Separar todo en servicios.
   * [X] Hacer readme.md.
   * [ ] Documentar los endpoints.
+  * [ ] Validate incoming data with Joi.
+  * [ ] Read about swagger with express.
+  * [ ] Retrieve user profile endpoint.
+  * [ ] hasCompletedProfile middleware.
 
 # Requisitos:
   * [X] Registro de usuarios.
