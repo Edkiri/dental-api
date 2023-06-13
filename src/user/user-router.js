@@ -4,7 +4,7 @@ import controller from './user-controller';
 import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares';
 import { validate } from '../middlewares';
 import UpdateProfileDto from './dtos/update-profile-dto';
-import CreateDentistDto from './dtos/create-dentist-dto';
+import UpdateDentistDto from './dtos/update-dentist-dto';
 
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post(
 	'/update-dentist-profile/:userId',
 	isAuthenticated,
 	isAdmin,
-	validate(CreateDentistDto),
+	validate(UpdateDentistDto),
 	controller.updateDentist
 );
 
