@@ -4,8 +4,9 @@ import controller from './appointment-controller';
 
 import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares';
 import { validateDentist } from '../user/user-middlewares';
-import { requiredService } from '../service/service-middlewares';
 import { countResquested, validateQuery, isOwner } from './appointment-middlewares';
+import { validate } from '../middlewares';
+import RequestAppointmentDto from './dtos/request-appointment-dto';
 
 const router = Router();
 
@@ -27,8 +28,8 @@ router.post(
 	'/',
 	isAuthenticated,
 	countResquested,
+	validate(RequestAppointmentDto),
 	validateDentist,
-	requiredService,
 	controller.request
 );
 

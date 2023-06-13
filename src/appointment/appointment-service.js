@@ -12,11 +12,14 @@ const findById = async (appointmentId) => {
 };
 
 const create = async (appointmentData) => {
+	if (appointmentData.dentist) {
+		if (appointmentData.dentist.id === appointmentData.patient.id) {
+			throw new Error('Dentist cant be his own patient');
+		}
+	}
 	const newAppointment = new Appointment(appointmentData);
 	await newAppointment.save();
-	const parsedAppointment = newAppointment.toJSON();
-	// delete parsedAppointment.dentist.password;
-	return parsedAppointment;
+	return newAppointment;
 };
 
 const find = async (query) => {

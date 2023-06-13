@@ -1,10 +1,13 @@
+import serviceService from '../service/service-service';
 import { appointmentStatus } from './appointment-model';
 import appointmentService from './appointment-service';
 
 const request = async (req, res, next) => {
 	try {
-		const { reason } = req.body;
-		const { service, dentist } = req;
+		const { reason, serviceId } = req.body;
+		const { dentist } = req;
+
+		const service = await serviceService.findById(serviceId);
 
 		const newAppointment = await appointmentService.create({
 			reason,
@@ -20,6 +23,9 @@ const request = async (req, res, next) => {
 			},
 		});
 	} catch (error) {
+		if (error.message === 'Dentist cant be his own patient') {
+			res.statusCode = 422;
+		}
 		return next(error);
 	}
 };

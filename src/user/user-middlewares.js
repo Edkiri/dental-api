@@ -21,6 +21,6 @@ export const validateDentist = async (req, res, next) => {
 		req.dentist = dentist;
 		return next();
 	} catch (error) {
-		next(error);
+		return next(error);
 	}
 };

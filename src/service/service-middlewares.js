@@ -10,10 +10,7 @@ export const requiredService = async (req, res, next) => {
 	}
 
 	const service = await Service.findById(serviceId);
-	if (!service) {
-		const error = new Error(`Not found service with id '${serviceId}'`);
-		return next(error);
-	}
+
 	req.service = service;
 	return next();
 };
