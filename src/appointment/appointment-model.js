@@ -25,12 +25,6 @@ const AppointmentSchema = new Schema(
 			min: [0, 'Price must be positive number'],
 		},
 
-		duration: {
-			type: Number,
-			required: true,
-			min: [0, 'Duration must be positive number'],
-		},
-
 		cancelledBy: { type: Schema.Types.ObjectId, ref: 'User' },
 
 		cancelledReason: { type: String, trim: true, minLength: 10, maxLength: 255 },

@@ -1,4 +1,5 @@
-import Appointment from './appointment-model';
+import serviceService from '../service/service-service';
+import Appointment, { appointmentStatus } from './appointment-model';
 
 const findById = async (appointmentId) => {
 	const appointment = await Appointment.findById(appointmentId)
@@ -36,6 +37,26 @@ const find = async (query) => {
 };
 
 const updateOne = async (appointmentId, appointmentData) => {
+	const { dentistId, serviceId, datetime } = appointmentData;
+	const service = await serviceService.findById(serviceId);
+
+	// Crear un servicio aparte para hacer esto
+	const fromDate = new Date(datetime).getTime();
+	const untilDate = new Date(fromDate + service.duration * 60 * 1000);
+
+	const existingAppointment = await Appointment.findOne({
+		dentist: dentistId,
+		datetime: { $gt: fromDate, $lt: untilDate },
+		status: appointmentStatus.CONFIRMED,
+	});
+	if (existingAppointment && existingAppointment.id !== appointmentId) {
+		const error = new Error(
+			`Dentist with id '${dentistId}' already has a confirmed appointment at '${datetime}'.`
+		);
+		error.name = 'OperationalError';
+		throw error;
+	}
+
 	const appointment = await Appointment.findByIdAndUpdate(appointmentId, appointmentData, {
 		new: true,
 		runValidators: true,

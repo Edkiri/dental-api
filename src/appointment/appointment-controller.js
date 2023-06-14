@@ -64,6 +64,7 @@ const comfirm = async (req, res, next) => {
 			},
 		});
 	} catch (error) {
+		if (error.name === 'OperationalError') res.statusCode = 400;
 		return next(error);
 	}
 };
