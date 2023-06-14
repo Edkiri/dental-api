@@ -19,6 +19,7 @@ const create = async (appointmentData) => {
 	}
 	const newAppointment = new Appointment(appointmentData);
 	newAppointment.price = newAppointment.service.price;
+	newAppointment.duration = newAppointment.service.duration;
 
 	await newAppointment.save();
 	return newAppointment;

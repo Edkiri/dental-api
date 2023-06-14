@@ -50,13 +50,6 @@ const findAll = async (req, res, next) => {
 
 const comfirm = async (req, res, next) => {
 	try {
-		const { datetime } = req.body;
-		if (!datetime) {
-			const error = new Error("Missing 'datetime' requiered field");
-			res.statusCode = 400;
-			return next(error);
-		}
-
 		const { appointmentId } = req.params;
 
 		const confirmedAppointment = await appointmentService.updateOne(appointmentId, {
