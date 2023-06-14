@@ -18,6 +18,8 @@ const create = async (appointmentData) => {
 		}
 	}
 	const newAppointment = new Appointment(appointmentData);
+	newAppointment.price = newAppointment.service.price;
+
 	await newAppointment.save();
 	return newAppointment;
 };

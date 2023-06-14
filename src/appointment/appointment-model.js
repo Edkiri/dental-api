@@ -13,11 +13,17 @@ const AppointmentSchema = new Schema(
 
 		patient: { type: Schema.Types.ObjectId, ref: 'User' },
 
-		datetime: { type: Date },
-
 		service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
 
+		datetime: { type: Date },
+
 		reason: { type: String, trim: true, required: true, minLength: 10, maxLength: 255 },
+
+		price: {
+			type: Number,
+			required: true,
+			min: [0, 'Price must be positive number'],
+		},
 
 		cancelledBy: { type: Schema.Types.ObjectId, ref: 'User' },
 
