@@ -9,6 +9,7 @@ import { validate } from '../middlewares';
 import RequestAppointmentDto from './dtos/request-appointment-dto';
 import CancelAppointmentDto from './dtos/cancel-appointment-dto';
 import ConfirmAppointmentDto from './dtos/confirm-appointment-dto';
+import FinishAppointmentDto from './dtos/finish-appointment-dto';
 
 const router = Router();
 
@@ -52,6 +53,12 @@ router.post(
 	controller.cancel
 );
 
-router.post('/:appointmentId/finish', isAuthenticated, isAdmin, controller.finish);
+router.post(
+	'/:appointmentId/finish',
+	isAuthenticated,
+	isAdmin,
+	validate(FinishAppointmentDto),
+	controller.finish
+);
 
 export default router;
