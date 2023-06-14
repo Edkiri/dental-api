@@ -8,6 +8,7 @@ import { countResquested, validateQuery, isOwner } from './appointment-middlewar
 import { validate } from '../middlewares';
 import RequestAppointmentDto from './dtos/request-appointment-dto';
 import CancelAppointmentDto from './dtos/cancel-appointment-dto';
+import ConfirmAppointmentDto from './dtos/confirm-appointment-dto';
 
 const router = Router();
 
@@ -28,8 +29,8 @@ router.get('/:appointmentId', isAuthenticated, isOwner, controller.findOne);
 router.post(
 	'/',
 	isAuthenticated,
-	countResquested,
 	validate(RequestAppointmentDto),
+	countResquested,
 	validateDentist,
 	controller.request
 );
@@ -38,6 +39,7 @@ router.post(
 	'/:appointmentId/confirm',
 	isAuthenticated,
 	isAdmin,
+	validate(ConfirmAppointmentDto),
 	validateDentist,
 	controller.comfirm
 );
@@ -45,8 +47,8 @@ router.post(
 router.post(
 	'/:appointmentId/cancel',
 	isAuthenticated,
-	validate(CancelAppointmentDto),
 	isOwner,
+	validate(CancelAppointmentDto),
 	controller.cancel
 );
 
