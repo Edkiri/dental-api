@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import authRouter from './auth/auth-router';
 import userRouter from './user/user-router';
@@ -9,6 +10,7 @@ import errorHandler from './error-handler';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json({
