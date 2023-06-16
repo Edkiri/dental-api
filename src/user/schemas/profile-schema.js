@@ -10,7 +10,7 @@ const ProfileSchema = new Schema(
 			maxLength: 100,
 		},
 
-		LastName: {
+		lastName: {
 			type: String,
 			trim: true,
 			required: [true, 'Last name is required'],

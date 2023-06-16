@@ -35,6 +35,7 @@ const updateProfile = async (req, res, next) => {
 	try {
 		const { user } = req;
 		user.profile = req.body;
+		user.onBoarded = true;
 
 		const updatedUser = await userService.updateOne(user.id, user);
 

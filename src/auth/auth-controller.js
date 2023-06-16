@@ -9,6 +9,7 @@ const signup = async (req, res, next) => {
 
 		delete req.body.dentist;
 		delete req.body.roles;
+		delete req.body.onBoarded;
 
 		const user = new User({
 			...req.body,

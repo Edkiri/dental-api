@@ -27,6 +27,8 @@ const UserSchema = new Schema(
 			default: [roles.USER],
 		},
 
+		onBoarded: { type: Boolean, default: false },
+
 		profile: ProfileSchema,
 
 		dentistProfile: DentistProfileSchema,
