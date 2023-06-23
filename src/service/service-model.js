@@ -1,5 +1,12 @@
 import { Schema, model } from 'mongoose';
 
+export const categories = {
+	SURGERY: 'surgery',
+	CLEANING: 'cleaning',
+	AESTHETIC: 'aesthetic',
+	CONSULTATION: 'consultation',
+};
+
 const ServiceSchema = new Schema(
 	{
 		name: {
@@ -29,6 +36,11 @@ const ServiceSchema = new Schema(
 			type: Number,
 			required: true,
 			min: [0, 'Duration must be positive number'],
+		},
+
+		category: {
+			type: String,
+			enum: Object.values(categories),
 		},
 	},
 	{ strict: true, timestamps: true }
