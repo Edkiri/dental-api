@@ -12,6 +12,8 @@ router.get('/', isAuthenticated, isDentist, controller.findAll);
 
 router.get('/profile', isAuthenticated, controller.getProfile);
 
+router.get('/dentists', controller.findDentists);
+
 router.post('/profile', isAuthenticated, validate(UpdateProfileDto), controller.updateProfile);
 
 router.post(

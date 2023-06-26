@@ -63,4 +63,17 @@ const updateDentist = async (req, res, next) => {
 	}
 };
 
-export default { findAll, updateProfile, updateDentist, getProfile };
+const findDentists = async (req, res, next) => {
+	try {
+		const dentists = await userService.findDentists();
+
+		res.status(200).json({
+			success: true,
+			data: { dentists },
+		});
+	} catch (error) {
+		next(error);
+	}
+};
+
+export default { findAll, updateProfile, updateDentist, getProfile, findDentists };

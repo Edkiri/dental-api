@@ -5,6 +5,10 @@ const findAll = async (query) => {
 	return User.find(query, { password: 0 }, { sanitizeFilter: true });
 };
 
+const findDentists = async () => {
+	return User.find({ roles: { $in: [roles.DENTIST] } }, { password: 0 });
+};
+
 const updateOne = async (userId, data) => {
 	return User.findByIdAndUpdate(userId, data, {
 		new: true,
@@ -38,4 +42,4 @@ const createDentist = async (userId, dentistData) => {
 	return dentist;
 };
 
-export default { findAll, updateOne, findById, createDentist };
+export default { findAll, updateOne, findById, createDentist, findDentists };
