@@ -7,7 +7,8 @@ const request = async (req, res, next) => {
 		const { reason, serviceId } = req.body;
 		const { dentist } = req;
 
-		const service = await serviceService.findById(serviceId);
+		let service;
+		if (serviceId) service = await serviceService.findById(serviceId);
 
 		const newAppointment = await appointmentService.create({
 			reason,

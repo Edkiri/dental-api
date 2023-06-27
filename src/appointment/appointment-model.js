@@ -13,7 +13,7 @@ const AppointmentSchema = new Schema(
 
 		patient: { type: Schema.Types.ObjectId, ref: 'User' },
 
-		service: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
+		service: { type: Schema.Types.ObjectId, ref: 'Service' },
 
 		datetime: { type: Date },
 
@@ -21,7 +21,6 @@ const AppointmentSchema = new Schema(
 
 		price: {
 			type: Number,
-			required: true,
 			min: [0, 'Price must be positive number'],
 		},
 
