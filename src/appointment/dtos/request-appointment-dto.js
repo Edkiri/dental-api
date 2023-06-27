@@ -10,6 +10,8 @@ const RequestAppointmentDto = Joi.object().keys({
 		.trim(),
 
 	reason: Joi.string().min(10).required().trim(),
+
+	datetime: Joi.date().min('now').required(),
 });
 
 export default RequestAppointmentDto;

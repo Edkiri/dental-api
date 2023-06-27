@@ -4,7 +4,7 @@ import appointmentService from './appointment-service';
 
 const request = async (req, res, next) => {
 	try {
-		const { reason, serviceId } = req.body;
+		const { reason, serviceId, datetime } = req.body;
 		const { dentist } = req;
 
 		let service;
@@ -14,6 +14,7 @@ const request = async (req, res, next) => {
 			reason,
 			service,
 			dentist,
+			datetime,
 			patient: req.user,
 		});
 
