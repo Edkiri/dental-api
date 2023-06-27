@@ -23,8 +23,6 @@ const ProfileSchema = new Schema(
 			trim: true,
 			required: [true, 'Phone number is required'],
 		},
-
-		pictureUrl: { type: String, trim: true },
 	},
 	{ strict: true, timestamps: true }
 );
