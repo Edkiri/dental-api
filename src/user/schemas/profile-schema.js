@@ -24,7 +24,7 @@ const ProfileSchema = new Schema(
 			required: [true, 'Phone number is required'],
 		},
 	},
-	{ strict: true, timestamps: true }
+	{ strict: true, skipVersioning: true, timestamps: false }
 );
 
 export default ProfileSchema;

@@ -10,14 +10,6 @@ const DentistProfileSchema = new Schema(
 			maxLength: 255,
 		},
 
-		identification: {
-			type: String,
-			trim: true,
-			required: true,
-			minLength: 6,
-			maxLength: 255,
-		},
-
 		yearsOfExperience: {
 			type: Number,
 			required: true,
@@ -31,7 +23,7 @@ const DentistProfileSchema = new Schema(
 			default: true,
 		},
 	},
-	{ strict: true, timestamps: true }
+	{ strict: true, skipVersioning: true, timestamps: false }
 );
 
 export default DentistProfileSchema;

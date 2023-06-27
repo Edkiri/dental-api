@@ -1,0 +1,44 @@
+[
+  {
+    "email": "hector@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Héctor",
+      "lastName": "Mateu",
+      "phoneNumber": 655555555
+    },
+    "dentistProfile": {
+      "specialization": "Ortodoncia",
+      "yearsOfExperience": 4,
+      "languages": ["Español", "Valenciano"]
+    }
+  },
+  {
+    "email": "dani@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Daniel",
+      "lastName": "Tarazona",
+      "phoneNumber": 655555555
+    },
+    "dentistProfile": {
+      "specialization": "Endodoncia",
+      "yearsOfExperience": 3,
+      "languages": ["Español", "Valenciano", "Inglés"]
+    }
+  },
+  {
+    "email": "mati@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Matilde",
+      "lastName": "Acosta",
+      "phoneNumber": 655555555
+    },
+    "dentistProfile": {
+      "specialization": "Periodoncia",
+      "yearsOfExperience": 10,
+      "languages": ["Español", "Inglés", "Italiano"]
+    }
+  }
+]
