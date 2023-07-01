@@ -61,4 +61,12 @@ router.post(
 	controller.finish
 );
 
+router.put(
+	'/:appointmentId',
+	isAuthenticated,
+	validate(RequestAppointmentDto),
+	validateDentist,
+	controller.update
+);
+
 export default router;

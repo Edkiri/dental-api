@@ -173,6 +173,37 @@ const finish = async (req, res, next) => {
 	}
 };
 
+const update = async (req, res, next) => {
+	try {
+		const { appointmentId } = req.params;
+		const { reason, serviceId, datetime } = req.body;
+		const { dentist } = req;
+
+		let service;
+		if (serviceId) service = await serviceService.findById(serviceId);
+
+		const newAppointment = await appointmentService.update(appointmentId, {
+			reason,
+			service,
+			dentist,
+			datetime,
+			patient: req.user,
+		});
+
+		return res.status(201).json({
+			success: true,
+			data: {
+				appointment: newAppointment,
+			},
+		});
+	} catch (error) {
+		if (error.message === 'Dentist cant be his own patient') {
+			res.statusCode = 422;
+		}
+		return next(error);
+	}
+};
+
 export default {
 	request,
 	cancel,
@@ -182,4 +213,5 @@ export default {
 	getUserAppointments,
 	getDentistAppointments,
 	findOne,
+	update,
 };

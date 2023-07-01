@@ -89,4 +89,11 @@ const findByDentist = async (dentistId, query) => {
 	return dentistAppointments;
 };
 
-export default { create, find, updateOne, findByPatient, findByDentist, findById };
+const update = async (appointmentId, appointmentData) => {
+	const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, appointmentData, {
+		new: true,
+	});
+	return updatedAppointment;
+};
+
+export default { create, find, updateOne, findByPatient, findByDentist, findById, update };
