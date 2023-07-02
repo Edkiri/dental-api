@@ -44,3 +44,23 @@ export async function seedDentists() {
 	});
 	return Promise.all(promises);
 }
+
+export async function seedAdmin() {
+	const someAdmin = await User.find({ roles: { $in: [roles.ADMIN] } });
+	if (someAdmin.length) return;
+
+	const adminData = fs.readFileSync('./src/seeder/user/admin-data.json', 'utf8', (err, data) => {
+		if (err) throw new Error('Error reading admin-data file');
+		return data;
+	});
+	const adminParsed = JSON.parse(adminData);
+
+	const hashedPassword = bcrypt.hashSync(adminParsed.password, 10);
+	const newDentists = new User({
+		...adminParsed,
+		password: hashedPassword,
+		roles: [roles.ADMIN],
+		onBoarded: true,
+	});
+	return newDentists.save();
+}

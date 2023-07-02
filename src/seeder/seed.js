@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import config from '../config/config';
-import { seedSuperadmin, seedDentists } from './user/user-seeder';
+import { seedSuperadmin, seedDentists, seedAdmin } from './user/user-seeder';
 import seedServices from './service/service-seed';
 
 const { url, options } = config.mongoose;
@@ -13,6 +13,9 @@ mongoose
 			const superadmin = await seedSuperadmin();
 			if (superadmin) console.log('Superadmin has been created');
 			console.log('Success seeding user');
+
+			const admin = await seedAdmin();
+			if (admin) console.log('Admin has been created');
 
 			const dentists = await seedDentists();
 			if (dentists) console.log(`${dentists.length} dentists has been created`);

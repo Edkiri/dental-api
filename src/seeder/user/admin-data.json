@@ -1,0 +1,9 @@
+{
+  "email": "edu@mail.com",
+  "password": "admin123",
+  "profile": {
+    "firstName": "Eduardo",
+    "lastName": "Kiriakos",
+    "phoneNumber": 65768389
+  }
+}
