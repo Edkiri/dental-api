@@ -129,7 +129,7 @@ const cancel = async (req, res, next) => {
 		const { appointmentId } = req.params;
 		const { cancelledReason } = req.body;
 
-		const cancelledAppointment = await appointmentService.updateOne(appointmentId, {
+		const cancelledAppointment = await appointmentService.update(appointmentId, {
 			status: appointmentStatus.CANCELLED,
 			cancelledReason,
 			cancelledBy: req.user,
