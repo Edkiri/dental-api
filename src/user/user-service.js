@@ -2,7 +2,9 @@ import User from './user-model';
 import { roles } from './schemas/user-schema';
 
 const findAll = async (query) => {
-	return User.find(query, { password: 0 }, { sanitizeFilter: true });
+	const usersData = await User.find(query, { password: 0 }, { sanitizeFilter: true });
+	const users = usersData.filter((user) => !user.roles.includes(roles.SUPERADMIN));
+	return users;
 };
 
 const findDentists = async () => {
