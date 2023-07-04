@@ -13,3 +13,20 @@ services:
       - ./docker-data:/data/db
     ports:
       - $MONGO_PORT:27017
+
+  api:
+    build: ./
+    container_name: dental-api
+    environment:
+      MONGO_DATABASE: $MONGO_DATABASE
+      JWT_SECRET: $JWT_SECRET
+      SUPER_ADMIN_EMAIL: $SUPER_ADMIN_EMAIL
+      SUPER_ADMIN_PASSWORD: $SUPER_ADMIN_PASSWORD
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/dental-api
+      - node_modules:/dental-api/node_modules
+
+volumes:
+  node_modules:
