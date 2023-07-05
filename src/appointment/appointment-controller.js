@@ -90,15 +90,15 @@ const getUserAppointments = async (req, res, next) => {
 
 const getDentistAppointments = async (req, res, next) => {
 	try {
-		const { user } = req;
+		req.query.dentist = req.user;
 
-		const dentistAppointments = await appointmentService.findByDentist(user.id, { ...req.query });
+		const { appointments, count } = await appointmentService.find(req.query);
 
 		return res.status(200).json({
 			success: true,
-			count: dentistAppointments.length,
+			count,
 			data: {
-				appointments: dentistAppointments,
+				appointments,
 			},
 		});
 	} catch (error) {

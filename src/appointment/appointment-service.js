@@ -33,6 +33,7 @@ const find = async (appointmentQuery) => {
 	const { patientName, dentistName } = appointmentQuery;
 	const { startDate, endDate } = appointmentQuery;
 	const { status } = appointmentQuery;
+	const { dentist } = appointmentQuery;
 
 	let query = Appointment.find()
 		.populate('dentist', { password: 0 })
@@ -87,6 +88,9 @@ const find = async (appointmentQuery) => {
 				],
 			},
 		});
+	}
+	if (dentist) {
+		query = query.find({ dentist });
 	}
 	const countQuery = await Appointment.countDocuments(query.getFilter());
 
