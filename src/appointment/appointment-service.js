@@ -41,29 +41,14 @@ const find = async (appointmentQuery) => {
 		.populate('cancelledBy', { password: 0 })
 		.populate('service');
 
-	const skip = appointmentQuery.skip || 0;
-	const limit = appointmentQuery.limit || 6;
-	query = query.skip(skip);
-	query = query.limit(limit);
-
 	if (startDate) {
-		query = query.find({
-			datetime: {
-				$gte: startDate,
-			},
-		});
+		query = query.where('datetime').gte(startDate);
 	}
 	if (status) {
-		query = query.find({
-			status,
-		});
+		query = query.where('status').equals(status);
 	}
 	if (endDate) {
-		query = query.find({
-			datetime: {
-				$lte: endDate,
-			},
-		});
+		query = query.where('datetime').lte(endDate);
 	}
 	if (patientName) {
 		const patientQuery = escapeRegExp(patientName);
@@ -90,11 +75,61 @@ const find = async (appointmentQuery) => {
 		});
 	}
 	if (dentist) {
-		query = query.find({ dentist });
+		query = query.where('dentist').equals(dentist);
 	}
-	const countQuery = await Appointment.countDocuments(query.getFilter());
 
-	let appointments = await query.sort({ datetime: -1 }).exec();
+	let countQuery = Appointment.find();
+
+	if (startDate) {
+		countQuery = countQuery.where('datetime').gte(startDate);
+	}
+	if (status) {
+		countQuery = countQuery.where('status').equals(status);
+	}
+	if (endDate) {
+		countQuery = countQuery.where('datetime').lte(endDate);
+	}
+	if (patientName) {
+		const patientQuery = escapeRegExp(patientName);
+		countQuery = countQuery.populate({
+			path: 'patient',
+			match: {
+				$or: [
+					{ 'profile.firstName': { $regex: patientQuery, $options: 'i' } },
+					{ 'profile.lastName': { $regex: patientQuery, $options: 'i' } },
+				],
+			},
+		});
+	}
+	if (dentistName) {
+		const dentistQuery = escapeRegExp(dentistName);
+		countQuery = countQuery.populate({
+			path: 'dentist',
+			match: {
+				$or: [
+					{ 'profile.firstName': { $regex: dentistQuery, $options: 'i' } },
+					{ 'profile.lastName': { $regex: dentistQuery, $options: 'i' } },
+				],
+			},
+		});
+	}
+	if (dentist) {
+		countQuery = countQuery.where('dentist').equals(dentist);
+	}
+
+	let countAppointments = await countQuery.exec();
+	if (dentistName) {
+		countAppointments = countAppointments.filter((appointment) => appointment.dentist);
+	}
+	if (patientName) {
+		countAppointments = countAppointments.filter((appointment) => appointment.patient);
+	}
+	console.log(countAppointments); // Log the count of documents
+
+	const skip = appointmentQuery.skip || 0;
+	const limit = appointmentQuery.limit || 6;
+
+	let appointments = await query.sort({ datetime: -1 }).skip(skip).limit(limit).exec();
 
 	if (dentistName) {
 		appointments = appointments.filter((appointment) => appointment.dentist);
@@ -103,14 +138,13 @@ const find = async (appointmentQuery) => {
 		appointments = appointments.filter((appointment) => appointment.patient);
 	}
 
-	return { appointments, count: countQuery };
+	return { appointments, count: countAppointments.length };
 };
 
 const updateOne = async (appointmentId, appointmentData) => {
 	const { dentistId, serviceId, datetime } = appointmentData;
 	const service = await serviceService.findById(serviceId);
 
-	// Crear un servicio aparte para hacer esto
 	const fromDate = new Date(datetime).getTime();
 	const untilDate = new Date(fromDate + service.duration * 60 * 1000);
 
