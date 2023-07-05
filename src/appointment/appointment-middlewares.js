@@ -51,7 +51,7 @@ export const isOwner = async (req, res, next) => {
 
 		const appointment = await appointmentService.findById(appointmentId);
 
-		if (user.id !== appointment.patient.id) {
+		if (user.id !== appointment.patient.id && user.id !== appointment.dentist.id) {
 			throw new Error('Unauthorized');
 		}
 
