@@ -29,9 +29,15 @@ const create = async (appointmentData) => {
 };
 
 const find = async (query) => {
+	let patientQuery;
+	if(query.patientName) {
+		const searchTerm = query.patientName;
+		const regex = new RegExp(searchTerm, 'i');
+		patientQuery = 
+	}
 	const appointments = await Appointment.find(query, {}, { sanitizeFilter: true })
 		.populate('dentist', { password: 0 })
-		.populate('patient', { password: 0 })
+		.populate({ path: 'patient', email: { $regex: regex }}, { password: 0 })
 		.populate('cancelledBy', { password: 0 })
 		.populate('service');
 
