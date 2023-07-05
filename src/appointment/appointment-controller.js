@@ -33,9 +33,7 @@ const request = async (req, res, next) => {
 };
 
 const findAll = async (req, res, next) => {
-	const query = {};
-	// if (req.query.patientName) query['patient.profile.firstName'] = req.query.patientName;
-	if (req.query.email) query['patient.email'] = req.query.email;
+	const query = req.query || {};
 	try {
 		const appointments = await appointmentService.find(query);
 

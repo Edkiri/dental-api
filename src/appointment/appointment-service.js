@@ -1,4 +1,5 @@
 import serviceService from '../service/service-service';
+import { escapeRegExp } from '../utils';
 import Appointment, { appointmentStatus } from './appointment-model';
 
 const findById = async (appointmentId) => {
@@ -28,19 +29,45 @@ const create = async (appointmentData) => {
 	return newAppointment;
 };
 
-const find = async (query) => {
-	let patientQuery;
-	if(query.patientName) {
-		const searchTerm = query.patientName;
-		const regex = new RegExp(searchTerm, 'i');
-		patientQuery = 
-	}
-	const appointments = await Appointment.find(query, {}, { sanitizeFilter: true })
+const find = async (appointmentQuery) => {
+	const { patientName, dentistName } = appointmentQuery;
+	let query = Appointment.find()
 		.populate('dentist', { password: 0 })
-		.populate({ path: 'patient', email: { $regex: regex }}, { password: 0 })
+		.populate('patient', { password: 0 })
 		.populate('cancelledBy', { password: 0 })
 		.populate('service');
 
+	if (patientName) {
+		const patientQuery = escapeRegExp(patientName);
+		query = query.populate({
+			path: 'patient',
+			match: {
+				$or: [
+					{ 'profile.firstName': { $regex: patientQuery, $options: 'i' } },
+					{ 'profile.lastName': { $regex: patientQuery, $options: 'i' } },
+				],
+			},
+		});
+	}
+	if (dentistName) {
+		const dentistQuery = escapeRegExp(dentistName);
+		query = query.populate({
+			path: 'dentist',
+			match: {
+				$or: [
+					{ 'profile.firstName': { $regex: dentistQuery, $options: 'i' } },
+					{ 'profile.lastName': { $regex: dentistQuery, $options: 'i' } },
+				],
+			},
+		});
+	}
+	let appointments = await query.exec();
+	if (dentistName) {
+		appointments = appointments.filter((appointment) => appointment.dentist);
+	}
+	if (patientName) {
+		appointments = appointments.filter((appointment) => appointment.patient);
+	}
 	return appointments;
 };
 
