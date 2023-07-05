@@ -35,11 +35,11 @@ const request = async (req, res, next) => {
 const findAll = async (req, res, next) => {
 	const query = req.query || {};
 	try {
-		const appointments = await appointmentService.find(query);
+		const { count, appointments } = await appointmentService.find(query);
 
 		return res.status(200).json({
 			success: true,
-			count: appointments.length,
+			count,
 			data: {
 				appointments,
 			},

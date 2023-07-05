@@ -32,6 +32,7 @@ const create = async (appointmentData) => {
 const find = async (appointmentQuery) => {
 	const { patientName, dentistName } = appointmentQuery;
 	const { startDate, endDate } = appointmentQuery;
+	const { status } = appointmentQuery;
 
 	let query = Appointment.find()
 		.populate('dentist', { password: 0 })
@@ -39,11 +40,21 @@ const find = async (appointmentQuery) => {
 		.populate('cancelledBy', { password: 0 })
 		.populate('service');
 
+	const skip = appointmentQuery.skip || 0;
+	const limit = appointmentQuery.limit || 6;
+	query = query.skip(skip);
+	query = query.limit(limit);
+
 	if (startDate) {
 		query = query.find({
 			datetime: {
 				$gte: startDate,
 			},
+		});
+	}
+	if (status) {
+		query = query.find({
+			status,
 		});
 	}
 	if (endDate) {
@@ -77,6 +88,7 @@ const find = async (appointmentQuery) => {
 			},
 		});
 	}
+	const countQuery = await Appointment.countDocuments(query.getFilter());
 
 	let appointments = await query.sort({ datetime: -1 }).exec();
 
@@ -86,7 +98,8 @@ const find = async (appointmentQuery) => {
 	if (patientName) {
 		appointments = appointments.filter((appointment) => appointment.patient);
 	}
-	return appointments;
+
+	return { appointments, count: countQuery };
 };
 
 const updateOne = async (appointmentId, appointmentData) => {
