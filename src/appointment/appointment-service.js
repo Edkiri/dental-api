@@ -31,12 +31,28 @@ const create = async (appointmentData) => {
 
 const find = async (appointmentQuery) => {
 	const { patientName, dentistName } = appointmentQuery;
+	const { startDate, endDate } = appointmentQuery;
+
 	let query = Appointment.find()
 		.populate('dentist', { password: 0 })
 		.populate('patient', { password: 0 })
 		.populate('cancelledBy', { password: 0 })
 		.populate('service');
 
+	if (startDate) {
+		query = query.find({
+			datetime: {
+				$gte: startDate,
+			},
+		});
+	}
+	if (endDate) {
+		query = query.find({
+			datetime: {
+				$lte: endDate,
+			},
+		});
+	}
 	if (patientName) {
 		const patientQuery = escapeRegExp(patientName);
 		query = query.populate({
@@ -61,7 +77,9 @@ const find = async (appointmentQuery) => {
 			},
 		});
 	}
-	let appointments = await query.exec();
+
+	let appointments = await query.sort({ datetime: -1 }).exec();
+
 	if (dentistName) {
 		appointments = appointments.filter((appointment) => appointment.dentist);
 	}
