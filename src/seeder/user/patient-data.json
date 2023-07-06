@@ -1,0 +1,47 @@
+[
+  {
+    "email": "giannis@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Giannis",
+      "lastName": "Kiriakos",
+      "phoneNumber": 655555555
+    }
+  },
+  {
+    "email": "milangela@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Milangela",
+      "lastName": "Piazza",
+      "phoneNumber": 655555555
+    }
+  },
+  {
+    "email": "daniela@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Daniela",
+      "lastName": "Gastón",
+      "phoneNumber": 655555555
+    }
+  },
+  {
+    "email": "coralia@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Coralia",
+      "lastName": "Pinto",
+      "phoneNumber": 655555555
+    }
+  },
+  {
+    "email": "marianna@mail.com",
+    "password": "admin123",
+    "profile": {
+      "firstName": "Marianna",
+      "lastName": "Girgenti",
+      "phoneNumber": 655555555
+    }
+  }
+]

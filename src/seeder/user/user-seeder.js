@@ -45,6 +45,32 @@ export async function seedDentists() {
 	return Promise.all(promises);
 }
 
+export async function seedPatients() {
+	const somePatient = await User.find({ roles: { $in: [roles.USER] } });
+	if (somePatient.length) return;
+
+	const patientData = fs.readFileSync(
+		'./src/seeder/user/patient-data.json',
+		'utf8',
+		(err, data) => {
+			if (err) throw new Error('Error reading patient-data file');
+			return data;
+		}
+	);
+	const patientParsed = JSON.parse(patientData);
+
+	const promises = patientParsed.map((patient) => {
+		const hashedPassword = bcrypt.hashSync(patient.password, 10);
+		const newPatient = new User({
+			...patient,
+			password: hashedPassword,
+			onBoarded: true,
+		});
+		return newPatient.save();
+	});
+	return Promise.all(promises);
+}
+
 export async function seedAdmin() {
 	const someAdmin = await User.find({ roles: { $in: [roles.ADMIN] } });
 	if (someAdmin.length) return;

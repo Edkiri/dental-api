@@ -99,6 +99,7 @@ const find = async (appointmentQuery) => {
 					{ 'profile.lastName': { $regex: patientQuery, $options: 'i' } },
 				],
 			},
+			strictPopulate: true,
 		});
 	}
 	if (dentistName) {
@@ -124,7 +125,6 @@ const find = async (appointmentQuery) => {
 	if (patientName) {
 		countAppointments = countAppointments.filter((appointment) => appointment.patient);
 	}
-	console.log(countAppointments); // Log the count of documents
 
 	const skip = appointmentQuery.skip || 0;
 	const limit = appointmentQuery.limit || 6;
