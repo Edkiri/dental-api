@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 
-import User from '../user/user-model';
-import { signToken } from './utils';
+import User from '../user/user-model.js';
+import { signToken } from './utils.js';
 
 const signup = async (req, res, next) => {
 	try {

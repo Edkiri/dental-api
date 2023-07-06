@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import config from './config/config';
-import app from './app';
+import config from './config/config.js';
+import app from './app.js';
 
 const { port } = config;
 const { url, options } = config.mongoose;

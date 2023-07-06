@@ -1,5 +1,5 @@
-import Appointment, { appointmentStatus } from './appointment-model';
-import appointmentService from './appointment-service';
+import Appointment, { appointmentStatus } from './appointment-model.js';
+import appointmentService from './appointment-service.js';
 
 const maxRequestedCount = 10;
 

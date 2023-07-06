@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { isAuthenticated, isAdmin } from '../auth/auth-middlewares';
-import controller from './service-controller';
-import { validate } from '../middlewares';
-import CreateServiceDto from './dtos/create-service-dto';
-import UpdateServiceDto from './dtos/update-service-dto';
+import { isAuthenticated, isAdmin } from '../auth/auth-middlewares.js';
+import controller from './service-controller.js';
+import { validate } from '../middlewares.js';
+import CreateServiceDto from './dtos/create-service-dto.js';
+import UpdateServiceDto from './dtos/update-service-dto.js';
 
 const router = Router();
 

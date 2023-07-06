@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-import config from '../config/config';
-import { seedSuperadmin, seedDentists, seedAdmin, seedPatients } from './user/user-seeder';
-import seedServices from './service/service-seed';
-import { seedAppointments } from './appointment/appointment-seed';
+import config from '../config/config.js';
+import { seedSuperadmin, seedDentists, seedAdmin, seedPatients } from './user/user-seeder.js';
+import seedServices from './service/service-seed.js';
+import { seedAppointments } from './appointment/appointment-seed.js';
 
 const { url, options } = config.mongoose;
 

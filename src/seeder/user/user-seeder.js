@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import fs from 'fs';
 
-import config from '../../config/config';
-import User from '../../user/user-model';
-import { roles } from '../../user/schemas/user-schema';
+import config from '../../config/config.js';
+import User from '../../user/user-model.js';
+import { roles } from '../../user/schemas/user-schema.js';
 
 export async function seedSuperadmin() {
 	const admin = await User.find({ roles: { $in: [roles.SUPERADMIN] } });

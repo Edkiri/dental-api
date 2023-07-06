@@ -1,4 +1,4 @@
-import serviceService from './service-service';
+import serviceService from './service-service.js';
 
 const find = async (req, res, next) => {
 	try {

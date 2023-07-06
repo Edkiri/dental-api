@@ -1,4 +1,4 @@
-import Service from './service-model';
+import Service from './service-model.js';
 
 const create = async (serviceData) => {
 	const service = new Service(serviceData);

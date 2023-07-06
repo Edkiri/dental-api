@@ -1,5 +1,5 @@
 import fs from 'fs';
-import Service from '../../service/service-model';
+import Service from '../../service/service-model.js';
 
 async function seedServices() {
 	const someService = await Service.findOne();

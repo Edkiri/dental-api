@@ -1,6 +1,6 @@
-import serviceService from '../service/service-service';
-import { escapeRegExp } from '../utils';
-import Appointment, { appointmentStatus } from './appointment-model';
+import serviceService from '../service/service-service.js';
+import { escapeRegExp } from '../utils.js';
+import Appointment, { appointmentStatus } from './appointment-model.js';
 
 const findById = async (appointmentId) => {
 	const appointment = await Appointment.findById(appointmentId)

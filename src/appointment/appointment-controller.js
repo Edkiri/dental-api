@@ -1,6 +1,6 @@
-import serviceService from '../service/service-service';
-import { appointmentStatus } from './appointment-model';
-import appointmentService from './appointment-service';
+import serviceService from '../service/service-service.js';
+import { appointmentStatus } from './appointment-model.js';
+import appointmentService from './appointment-service.js';
 
 const request = async (req, res, next) => {
 	try {

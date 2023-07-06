@@ -1,5 +1,5 @@
-import User from './user-model';
-import { roles } from './schemas/user-schema';
+import User from './user-model.js';
+import { roles } from './schemas/user-schema.js';
 
 const findAll = async (query) => {
 	const usersData = await User.find(query, { password: 0 }, { sanitizeFilter: true });

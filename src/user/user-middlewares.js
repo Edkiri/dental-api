@@ -1,4 +1,4 @@
-import userService from './user-service';
+import userService from './user-service.js';
 
 export const validateDentist = async (req, res, next) => {
 	const { dentistId } = req.body;

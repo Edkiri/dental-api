@@ -1,12 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 
-import authRouter from './auth/auth-router';
-import userRouter from './user/user-router';
-import serviceRouter from './service/service-router';
-import appointmentRouter from './appointment/appointment-router';
-import { notFound } from './middlewares';
-import errorHandler from './error-handler';
+import authRouter from './auth/auth-router.js';
+import userRouter from './user/user-router.js';
+import serviceRouter from './service/service-router.js';
+import appointmentRouter from './appointment/appointment-router.js';
+import { notFound } from './middlewares.js';
+import errorHandler from './error-handler.js';
 
 const app = express();
 app.use(express.json());

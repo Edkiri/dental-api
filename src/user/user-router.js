@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import controller from './user-controller';
-import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares';
-import { validate } from '../middlewares';
-import UpdateProfileDto from './dtos/update-profile-dto';
-import UpdateDentistDto from './dtos/update-dentist-dto';
+import controller from './user-controller.js';
+import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares.js';
+import { validate } from '../middlewares.js';
+import UpdateProfileDto from './dtos/update-profile-dto.js';
+import UpdateDentistDto from './dtos/update-dentist-dto.js';
 
 const router = Router();
 

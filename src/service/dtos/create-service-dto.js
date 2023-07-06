@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { categories } from '../service-model';
+import { categories } from '../service-model.js';
 
 const CreateServiceDto = Joi.object().keys({
 	category: Joi.string()

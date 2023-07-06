@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import controller from './auth-controller';
-import { validate } from '../middlewares';
-import SignupDto from './dtos/signup-dto';
-import LoginDto from './dtos/login-dto';
+import controller from './auth-controller.js';
+import { validate } from '../middlewares.js';
+import SignupDto from './dtos/signup-dto.js';
+import LoginDto from './dtos/login-dto.js';
 
 const router = Router();
 

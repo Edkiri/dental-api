@@ -1,9 +1,9 @@
-import Appointment, { appointmentStatus } from '../../appointment/appointment-model';
-import User from '../../user/user-model';
-import { roles } from '../../user/schemas/user-schema';
-import Service from '../../service/service-model';
-import { CANCEL_REASONS, REASONS } from './reasons-data';
-import { getRandomDateTime } from '../../utils';
+import Appointment, { appointmentStatus } from '../../appointment/appointment-model.js';
+import User from '../../user/user-model.js';
+import { roles } from '../../user/schemas/user-schema.js';
+import Service from '../../service/service-model.js';
+import { CANCEL_REASONS, REASONS } from './reasons-data.js';
+import { getRandomDateTime } from '../../utils.js';
 
 export async function seedAppointments() {
 	const someAppointment = await Appointment.find();
@@ -19,7 +19,7 @@ export async function seedAppointments() {
 		const randomDentistIndex = Math.floor(Math.random() * dentists.length);
 		const randomPatientIndex = Math.floor(Math.random() * patients.length);
 
-		const randomReasonIndex = Math.floor(Math.random() * REASONS.length);
+		const randomReasonIndex = Math.floor(Math.random().js * REASONS.length);
 		const statusValues = Object.values(appointmentStatus);
 		const randomIndex = Math.floor(Math.random() * statusValues.length);
 

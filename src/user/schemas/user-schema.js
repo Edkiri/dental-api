@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 
-import ProfileSchema from './profile-schema';
-import DentistProfileSchema from './dentist-schema';
+import ProfileSchema from './profile-schema.js';
+import DentistProfileSchema from './dentist-schema.js';
 
 export const roles = {
 	USER: 'user',

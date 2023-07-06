@@ -1,15 +1,15 @@
 import { Router } from 'express';
 
-import controller from './appointment-controller';
+import controller from './appointment-controller.js';
 
-import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares';
-import { validateDentist } from '../user/user-middlewares';
-import { countResquested, validateQuery, isOwner } from './appointment-middlewares';
-import { validate } from '../middlewares';
-import RequestAppointmentDto from './dtos/request-appointment-dto';
-import CancelAppointmentDto from './dtos/cancel-appointment-dto';
-import ConfirmAppointmentDto from './dtos/confirm-appointment-dto';
-import FinishAppointmentDto from './dtos/finish-appointment-dto';
+import { isAuthenticated, isAdmin, isDentist } from '../auth/auth-middlewares.js';
+import { validateDentist } from '../user/user-middlewares.js';
+import { countResquested, validateQuery, isOwner } from './appointment-middlewares.js';
+import { validate } from '../middlewares.js';
+import RequestAppointmentDto from './dtos/request-appointment-dto.js';
+import CancelAppointmentDto from './dtos/cancel-appointment-dto.js';
+import ConfirmAppointmentDto from './dtos/confirm-appointment-dto.js';
+import FinishAppointmentDto from './dtos/finish-appointment-dto.js';
 
 const router = Router();
 
