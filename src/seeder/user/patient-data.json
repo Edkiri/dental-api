@@ -18,11 +18,11 @@
     }
   },
   {
-    "email": "daniela@mail.com",
+    "email": "jd@mail.com",
     "password": "admin123",
     "profile": {
-      "firstName": "Daniela",
-      "lastName": "Gastón",
+      "firstName": "Jesús",
+      "lastName": "Daniel",
       "phoneNumber": 655555555
     }
   },
@@ -36,11 +36,11 @@
     }
   },
   {
-    "email": "marianna@mail.com",
+    "email": "adam@mail.com",
     "password": "admin123",
     "profile": {
-      "firstName": "Marianna",
-      "lastName": "Girgenti",
+      "firstName": "Adam",
+      "lastName": "Rojas",
       "phoneNumber": 655555555
     }
   }
